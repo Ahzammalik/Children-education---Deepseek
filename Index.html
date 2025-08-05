@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Adventure | Kids Educational App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6ec4db, #a5dd9b);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            width: 100%;
+            max-width: 500px;
+            height: 90vh;
+            max-height: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header styles */
+        .app-header {
+            background: linear-gradient(to right, #ffd166, #f47b7b);
+            padding: 15px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-title {
+            font-size: 2.2rem;
+            color: white;
+            text-shadow: 2px 2px 0 #a37afc;
+            letter-spacing: 1px;
+        }
+        
+        /* Navigation styles */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 3px solid #ffd166;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: #a37afc;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 #7a5bc7;
+            min-width: 80px;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: #8e6ce6;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #7a5bc7;
+        }
+        
+        /* Main content area */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Home screen */
+        .home-screen {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .home-title {
+            color: #f47b7b;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #ffd166;
+        }
+        
+        .home-subtitle {
+            color: #6ec4db;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .activity-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 4px solid #ffd166;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .activity-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #a37afc;
+        }
+        
+        .activity-title {
+            color: #6ec4db;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        /* Alphabet section */
+        .alphabet-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .letter-card {
+            background: linear-gradient(135deg, #6ec4db, #a5dd9b);
+            border-radius: 15px;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .letter-example {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        
+        /* Numbers section */
+        .numbers-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .number-card {
+            background: linear-gradient(135deg, #f47b7b, #a37afc);
+            border-radius: 15px;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .number-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .number-word {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        
+        /* Drawing section */
+        .drawing-container {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .canvas-container {
+            background: white;
+            border-radius: 20px;
+            margin: 20px auto;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 4px solid #ffd166;
+        }
+        
+        #drawing-canvas {
+            background: #fff;
+            display: block;
+            cursor: crosshair;
+            width: 100%;
+            height: 300px;
+        }
+        
+        .color-picker {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        
+        .color-option:hover, .color-option.active {
+            transform: scale(1.1);
+            border: 3px solid #333;
+        }
+        
+        /* Language selector */
+        .language-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .lang-btn {
+            background: #6ec4db;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 8px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn.active {
+            background: #4a8d9f;
+            transform: scale(1.05);
+        }
+        
+        /* Math game section */
+        .math-game {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .problem-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 4px solid #ffd166;
+            font-size: 2.5rem;
+            color: #a37afc;
+        }
+        
+        .answer-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .answer-btn {
+            background: #f47b7b;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 #c45d5d;
+        }
+        
+        .answer-btn:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #c45d5d;
+        }
+        
+        /* Footer styles */
+        .app-footer {
+            background: #ffd166;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #7a5bc7;
+            font-size: 1rem;
+            border-top: 3px solid #f47b7b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .star-container {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .star {
+            font-size: 1.5rem;
+            color: #f47b7b;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+            100% { transform: scale(1); }
+        }
+        
+        .celebrate {
+            animation: celebrate 0.5s ease-in-out;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .app-title { font-size: 1.8rem; }
+            .home-title { font-size: 2rem; }
+            .activity-grid { grid-template-columns: 1fr; }
+            .alphabet-container { grid-template-columns: repeat(3, 1fr); }
+            .answer-options { grid-template-columns: 1fr; }
+        }
+        
+        /* Decorative elements */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 0;
+        }
+        
+        .character {
+            position: absolute;
+            z-index: 1;
+            font-size: 3rem;
+        }
+        
+        /* Level selector */
+        .level-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .level-btn {
+            width: 60px;
+            height: 60px;
+            background: #a37afc;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #7a5bc7;
+            transition: all 0.3s;
+        }
+        
+        .level-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .level-btn.completed {
+            background: #ffd166;
+            color: #7a5bc7;
+        }
+        
+        .level-btn.locked {
+            background: #cccccc;
+            box-shadow: 0 4px 0 #999999;
+            cursor: not-allowed;
+        }
+        
+        /* Parental lock overlay */
+        .parental-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(106, 90, 205, 0.9);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            display: none;
+        }
+        
+        .lock-form {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .lock-title {
+            color: #a37afc;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .pin-input {
+            width: 200px;
+            padding: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+            border: 3px solid #ffd166;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .lock-btn {
+            background: #a37afc;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 #7a5bc7;
+        }
+        
+        .lock-btn:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #7a5bc7;
+        }
+        
+        /* Progress tracker */
+        .progress-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 4px solid #ffd166;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #6ec4db, #a5dd9b);
+            border-radius: 10px;
+            width: 65%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            color: #a37afc;
+        }
+        
+        /* Theme selector */
+        .theme-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .theme-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .theme-option.active {
+            border: 3px solid #333;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- App Header -->
+        <div class="app-header">
+            <h1 class="app-title">Learning Adventure</h1>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-container">
+            <button class="nav-btn active" data-section="home">Home</button>
+            <button class="nav-btn" data-section="english">English</button>
+            <button class="nav-btn" data-section="math">Math</button>
+            <button class="nav-btn" data-section="drawing">Art</button>
+            <button class="nav-btn" data-section="progress">Progress</button>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Home Screen -->
+            <div id="home" class="section-content home-screen">
+                <h1 class="home-title">Welcome to Learning Adventure!</h1>
+                <p class="home-subtitle">Fun educational games for kids 3-10 years old</p>
+                
+                <div class="level-selector">
+                    <div class="level-btn completed">1</div>
+                    <div class="level-btn completed">2</div>
+                    <div class="level-btn">3</div>
+                    <div class="level-btn">4</div>
+                    <div class="level-btn locked">5</div>
+                    <div class="level-btn locked">6</div>
+                </div>
+                
+                <div class="activity-grid">
+                    <div class="activity-card" data-section="english">
+                        <div class="activity-icon"><i class="fas fa-font"></i></div>
+                        <h3 class="activity-title">English ABC</h3>
+                        <p>Learn A to Z</p>
+                    </div>
+                    <div class="activity-card" data-section="math">
+                        <div class="activity-icon"><i class="fas fa-calculator"></i></div>
+                        <h3 class="activity-title">Math Fun</h3>
+                        <p>Numbers & Counting</p>
+                    </div>
+                    <div class="activity-card" data-section="drawing">
+                        <div class="activity-icon"><i class="fas fa-paint-brush"></i></div>
+                        <h3 class="activity-title">Creative Art</h3>
+                        <p>Draw & Color</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fas fa-music"></i></div>
+                        <h3 class="activity-title">Music World</h3>
+                        <p>Sounds & Rhymes</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- English Section -->
+            <div id="english" class="section-content" style="display:none;">
+                <h2 style="color: #6EC4DB; text-align: center; margin-bottom: 20px;">English Alphabet</h2>
+                <p style="text-align: center; margin-bottom: 20px; color: #F47B7B;">Tap on letters to hear sounds!</p>
+                
+                <div class="language-selector">
+                    <button class="lang-btn active">Alphabet</button>
+                    <button class="lang-btn">Words</button>
+                    <button class="lang-btn">Sentences</button>
+                </div>
+                
+                <div class="alphabet-container">
+                    <!-- Letters will be generated by JS -->
+                </div>
+            </div>
+            
+            <!-- Math Section -->
+            <div id="math" class="section-content" style="display:none;">
+                <h2 style="color: #A37AFC; text-align: center; margin-bottom: 20px;">Math Adventure</h2>
+                <p style="text-align: center; margin-bottom: 20px; color: #6EC4DB;">Solve problems to earn stars!</p>
+                
+                <div class="math-game">
+                    <div class="problem-container">
+                        5 + 3 = ?
+                    </div>
+                    
+                    <div class="answer-options">
+                        <button class="answer-btn">7</button>
+                        <button class="answer-btn">8</button>
+                        <button class="answer-btn">9</button>
+                        <button class="answer-btn">6</button>
+                    </div>
+                    
+                    <button class="nav-btn" style="background: #6EC4DB;">Next Problem</button>
+                </div>
+            </div>
+            
+            <!-- Drawing Section -->
+            <div id="drawing" class="section-content" style="display:none;">
+                <h2 style="color: #A37AFC; text-align: center; margin-bottom: 10px;">Creative Drawing</h2>
+                <p style="text-align: center; margin-bottom: 20px; color: #6EC4DB;">Draw your masterpiece!</p>
+                
+                <div class="theme-selector">
+                    <div class="theme-option active" style="background: linear-gradient(135deg, #6EC4DB, #A5DD9B);"></div>
+                    <div class="theme-option" style="background: linear-gradient(135deg, #F47B7B, #A37AFC);"></div>
+                    <div class="theme-option" style="background: linear-gradient(135deg, #FFD166, #F47B7B);"></div>
+                </div>
+                
+                <div class="drawing-container">
+                    <div class="canvas-container">
+                        <canvas id="drawing-canvas"></canvas>
+                    </div>
+                    
+                    <div class="color-picker">
+                        <div class="color-option active" style="background-color: #000;" data-color="#000"></div>
+                        <div class="color-option" style="background-color: #F47B7B;" data-color="#F47B7B"></div>
+                        <div class="color-option" style="background-color: #6EC4DB;" data-color="#6EC4DB"></div>
+                        <div class="color-option" style="background-color: #FFD166;" data-color="#FFD166"></div>
+                        <div class="color-option" style="background-color: #A37AFC;" data-color="#A37AFC"></div>
+                        <div class="color-option" style="background-color: #A5DD9B;" data-color="#A5DD9B"></div>
+                    </div>
+                    
+                    <button class="nav-btn" id="clear-canvas" style="background: #F47B7B;">Clear Drawing</button>
+                </div>
+            </div>
+            
+            <!-- Progress Section -->
+            <div id="progress" class="section-content" style="display:none;">
+                <h2 style="color: #A37AFC; text-align: center; margin-bottom: 20px;">Your Progress</h2>
+                <p style="text-align: center; margin-bottom: 20px; color: #6EC4DB;">Great job! Keep learning!</p>
+                
+                <div class="progress-container">
+                    <h3 style="color: #F47B7B; text-align: center; margin-bottom: 15px;">English Alphabet</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">65% Complete</div>
+                </div>
+                
+                <div class="progress-container">
+                    <h3 style="color: #6EC4DB; text-align: center; margin-bottom: 15px;">Math Skills</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%;"></div>
+                    </div>
+                    <div class="progress-text">45% Complete</div>
+                </div>
+                
+                <div class="progress-container">
+                    <h3 style="color: #A37AFC; text-align: center; margin-bottom: 15px;">Art Projects</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%;"></div>
+                    </div>
+                    <div class="progress-text">30% Complete</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- App Footer -->
+        <div class="app-footer">
+            <div>
+                <button class="lock-btn" id="parental-lock-btn"><i class="fas fa-lock"></i> Parent Lock</button>
+            </div>
+            <div class="star-container">
+                <div class="star"><i class="fas fa-star"></i></div>
+                <div class="star"><i class="fas fa-star"></i></div>
+                <div class="star"><i class="fas fa-star"></i></div>
+                <div class="star"><i class="fas fa-star"></i></div>
+                <div class="star"><i class="fas fa-star"></i></div>
+            </div>
+        </div>
+        
+        <!-- Parental Lock Overlay -->
+        <div class="parental-overlay" id="parental-overlay">
+            <div class="lock-form">
+                <h2 class="lock-title">Parental Lock</h2>
+                <p style="margin-bottom: 20px; color: #666;">Enter PIN to unlock settings</p>
+                <input type="password" class="pin-input" id="pin-input" placeholder="1234" maxlength="4">
+                <button class="lock-btn" id="unlock-btn">Unlock</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create decorative bubbles
+            createDecorativeElements();
+            
+            // Navigation handling
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const sectionContents = document.querySelectorAll('.section-content');
+            const activityCards = document.querySelectorAll('.activity-card');
+            const langButtons = document.querySelectorAll('.lang-btn');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    
+                    // Update active button
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected section
+                    sectionContents.forEach(content => content.style.display = 'none');
+                    document.getElementById(section).style.display = 'block';
+                });
+            });
+            
+            activityCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    
+                    // Update active button
+                    navButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        if(btn.getAttribute('data-section') === section) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    // Show selected section
+                    sectionContents.forEach(content => content.style.display = 'none');
+                    document.getElementById(section).style.display = 'block';
+                });
+            });
+            
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Generate English alphabet cards
+            const englishContainer = document.querySelector('#english .alphabet-container');
+            const englishLetters = [
+                {char: 'A', word: 'Apple', emoji: '🍎'},
+                {char: 'B', word: 'Ball', emoji: '⚽'},
+                {char: 'C', word: 'Cat', emoji: '🐱'},
+                {char: 'D', word: 'Dog', emoji: '🐶'},
+                {char: 'E', word: 'Elephant', emoji: '🐘'},
+                {char: 'F', word: 'Flower', emoji: '🌸'},
+                {char: 'G', word: 'Grapes', emoji: '🍇'},
+                {char: 'H', word: 'House', emoji: '🏠'},
+                {char: 'I', word: 'Ice Cream', emoji: '🍦'},
+                {char: 'J', word: 'Jellyfish', emoji: '🎐'},
+                {char: 'K', word: 'Kite', emoji: '🪁'},
+                {char: 'L', word: 'Lion', emoji: '🦁'}
+            ];
+            
+            englishLetters.forEach(letter => {
+                const card = document.createElement('div');
+                card.className = 'letter-card floating';
+                card.innerHTML = `
+                    <div class="letter">${letter.char}</div>
+                    <div class="letter-example">${letter.emoji} ${letter.word}</div>
+                `;
+                card.addEventListener('click', () => speakLetter(letter.char));
+                englishContainer.appendChild(card);
+            });
+            
+            // Drawing canvas functionality
+            const canvas = document.getElementById('drawing-canvas');
+            const ctx = canvas.getContext('2d');
+            const colorOptions = document.querySelectorAll('.color-option');
+            const clearBtn = document.getElementById('clear-canvas');
+            
+            // Set canvas size
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = 300;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Set initial drawing settings
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+            let strokeColor = '#000';
+            let lineWidth = 5;
+            
+            // Set up color picker
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    strokeColor = this.getAttribute('data-color');
+                });
+            });
+            
+            // Drawing functions
+            function startDrawing(e) {
+                isDrawing = true;
+                [lastX, lastY] = getCoordinates(e);
+            }
+            
+            function draw(e) {
+                if (!isDrawing) return;
+                
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                
+                const [x, y] = getCoordinates(e);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = strokeColor;
+                ctx.lineWidth = lineWidth;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                
+                [lastX, lastY] = [x, y];
+            }
+            
+            function stopDrawing() {
+                isDrawing = false;
+            }
+            
+            function getCoordinates(e) {
+                if (e.type.includes('touch')) {
+                    const touch = e.touches[0] || e.changedTouches[0];
+                    const rect = canvas.getBoundingClientRect();
+                    return [touch.clientX - rect.left, touch.clientY - rect.top];
+                } else {
+                    return [e.offsetX, e.offsetY];
+                }
+            }
+            
+            // Event listeners for drawing
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // Touch events for mobile
+            canvas.addEventListener('touchstart', startDrawing);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stopDrawing);
+            
+            // Clear canvas
+            clearBtn.addEventListener('click', function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            });
+            
+            // Speech functions
+            function speakLetter(letter) {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(letter);
+                    utterance.pitch = 1.2;
+                    utterance.rate = 0.8;
+                    speechSynthesis.speak(utterance);
+                }
+            }
+            
+            // Create decorative bubbles and characters
+            function createDecorativeElements() {
+                const container = document.querySelector('.content-area');
+                
+                // Create bubbles
+                for (let i = 0; i < 15; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'bubble';
+                    const size = Math.random() * 60 + 20;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const animationDelay = Math.random() * 5;
+                    
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    bubble.style.left = `${posX}%`;
+                    bubble.style.top = `${posY}%`;
+                    bubble.style.animationDelay = `${animationDelay}s`;
+                    bubble.style.opacity = Math.random() * 0.5 + 0.1;
+                    
+                    container.appendChild(bubble);
+                }
+                
+                // Create floating characters
+                const characters = ['🐶', '🐱', '🐰', '🦊', '🐻', '🐼', '🐯', '🦁', '🐮', '🐷'];
+                for (let i = 0; i < 5; i++) {
+                    const char = document.createElement('div');
+                    char.className = 'character floating';
+                    char.textContent = characters[Math.floor(Math.random() * characters.length)];
+                    
+                    const posX = Math.random() * 80 + 10;
+                    const posY = Math.random() * 80 + 10;
+                    const animationDelay = Math.random() * 3;
+                    
+                    char.style.left = `${posX}%`;
+                    char.style.top = `${posY}%`;
+                    char.style.animationDelay = `${animationDelay}s`;
+                    char.style.fontSize = `${Math.random() * 2 + 2}rem`;
+                    
+                    container.appendChild(char);
+                }
+            }
+            
+            // Parental lock functionality
+            const lockBtn = document.getElementById('parental-lock-btn');
+            const overlay = document.getElementById('parental-overlay');
+            const unlockBtn = document.getElementById('unlock-btn');
+            const pinInput = document.getElementById('pin-input');
+            
+            lockBtn.addEventListener('click', function() {
+                overlay.style.display = 'flex';
+            });
+            
+            unlockBtn.addEventListener('click', function() {
+                if(pinInput.value === '1234') {
+                    overlay.style.display = 'none';
+                    pinInput.value = '';
+                    
+                    // Show a celebration effect
+                    lockBtn.innerHTML = '<i class="fas fa-lock-open"></i> Unlocked';
+                    lockBtn.classList.add('celebrate');
+                    setTimeout(() => {
+                        lockBtn.classList.remove('celebrate');
+                    }, 1000);
+                } else {
+                    pinInput.value = '';
+                    pinInput.placeholder = 'Wrong PIN! Try 1234';
+                }
+            });
+            
+            // Math game functionality
+            const answerButtons = document.querySelectorAll('.answer-btn');
+            const problemContainer = document.querySelector('.problem-container');
+            const stars = document.querySelectorAll('.star');
+            let starCount = 2;
+            
+            // Set up answer buttons
+            answerButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if(this.textContent === '8') {
+                        // Correct answer
+                        this.style.background = '#A5DD9B';
+                        this.style.boxShadow = '0 4px 0 #7aaf71';
+                        
+                        // Celebrate
+                        this.classList.add('celebrate');
+                        setTimeout(() => {
+                            this.classList.remove('celebrate');
+                        }, 1000);
+                        
+                        // Add a star
+                        if(starCount < 5) {
+                            starCount++;
+                            stars[starCount-1].style.color = '#FFD166';
+                            stars[starCount-1].classList.add('celebrate');
+                            setTimeout(() => {
+                                stars[starCount-1].classList.remove('celebrate');
+                            }, 1000);
+                        }
+                    } else {
+                        // Wrong answer
+                        this.style.background = '#F47B7B';
+                        this.style.boxShadow = '0 4px 0 #c45d5d';
+                    }
+                });
+            });
+            
+            // Initialize stars
+            for(let i = 0; i < starCount; i++) {
+                stars[i].style.color = '#FFD166';
+            }
+        });
+    </script>
+</body>
+</html>
