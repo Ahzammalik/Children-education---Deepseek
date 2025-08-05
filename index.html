@@ -10,16 +10,27 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #6ec4db;
+            --secondary: #a5dd9b;
+            --accent1: #ffd166;
+            --accent2: #f47b7b;
+            --accent3: #a37afc;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --success: #2ecc71;
         }
         
         body {
-            background: linear-gradient(135deg, #6ec4db, #a5dd9b);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             overflow-x: hidden;
         }
         
@@ -27,19 +38,20 @@
             width: 100%;
             max-width: 500px;
             height: 90vh;
-            max-height: 800px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
+            max-height: 850px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
+            border: 3px solid var(--accent1);
         }
         
         /* Header styles */
         .app-header {
-            background: linear-gradient(to right, #ffd166, #f47b7b);
+            background: linear-gradient(to right, var(--accent1), var(--accent2));
             padding: 15px 20px;
             text-align: center;
             position: relative;
@@ -48,132 +60,163 @@
         }
         
         .app-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: white;
-            text-shadow: 2px 2px 0 #a37afc;
+            text-shadow: 2px 2px 0 var(--accent3);
             letter-spacing: 1px;
+            font-weight: 700;
         }
         
         /* Navigation styles */
         .nav-container {
             display: flex;
             justify-content: center;
-            background: #fff;
-            padding: 10px 0;
-            border-bottom: 3px solid #ffd166;
+            background: var(--light);
+            padding: 10px 5px;
+            border-bottom: 3px solid var(--accent1);
             flex-wrap: wrap;
+            gap: 5px;
         }
         
         .nav-btn {
-            background: #a37afc;
+            background: var(--accent3);
             color: white;
             border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 1.1rem;
+            border-radius: 15px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 0 #7a5bc7;
-            min-width: 80px;
+            box-shadow: 0 3px 0 #7a5bc7;
+            min-width: 70px;
+            font-weight: 600;
         }
         
         .nav-btn:hover, .nav-btn.active {
             background: #8e6ce6;
             transform: translateY(2px);
-            box-shadow: 0 2px 0 #7a5bc7;
+            box-shadow: 0 1px 0 #7a5bc7;
         }
         
         /* Main content area */
         .content-area {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 15px;
             position: relative;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
         }
         
         /* Home screen */
         .home-screen {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         
         .home-title {
-            color: #f47b7b;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0 #ffd166;
+            color: var(--accent2);
+            font-size: 2rem;
+            margin: 10px 0;
+            text-shadow: 1px 1px 0 var(--accent1);
         }
         
         .home-subtitle {
-            color: #6ec4db;
-            font-size: 1.3rem;
-            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary), var(--accent3));
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px 0;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .activity-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 15px;
         }
         
         .activity-card {
             background: white;
-            border-radius: 20px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 15px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
             transition: all 0.3s;
-            border: 4px solid #ffd166;
+            border: 3px solid var(--accent1);
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 150px;
+            min-height: 120px;
         }
         
         .activity-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent3);
         }
         
         .activity-icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            color: #a37afc;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            color: var(--accent3);
         }
         
         .activity-title {
-            color: #6ec4db;
-            font-size: 1.3rem;
-            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 700;
         }
         
         /* Alphabet section */
+        .section-title {
+            color: var(--accent3);
+            text-align: center;
+            margin: 10px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--accent2);
+            font-weight: 600;
+        }
+        
         .alphabet-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
         
         .letter-card {
-            background: linear-gradient(135deg, #6ec4db, #a5dd9b);
-            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
             aspect-ratio: 1/1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            font-weight: 700;
         }
         
         .letter-card:hover {
@@ -181,55 +224,144 @@
         }
         
         .letter-example {
-            font-size: 1rem;
-            margin-top: 5px;
+            font-size: 0.85rem;
+            margin-top: 3px;
+            font-weight: 500;
         }
         
-        /* Numbers section */
-        .numbers-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .number-card {
-            background: linear-gradient(135deg, #f47b7b, #a37afc);
-            border-radius: 15px;
-            aspect-ratio: 1/1;
+        /* Math section */
+        .math-container {
             display: flex;
             flex-direction: column;
+            gap: 15px;
+        }
+        
+        .math-section {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--accent1);
+        }
+        
+        .math-title {
+            color: var(--accent2);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .counter {
+            display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
+            color: var(--accent3);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .counter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .counter-btn {
+            background: var(--accent3);
             color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #7a5bc7;
+        }
+        
+        .problem-container {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--accent1);
+            font-size: 1.8rem;
+            color: var(--accent3);
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .answer-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        
+        .answer-btn {
+            background: var(--accent2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 1.4rem;
             cursor: pointer;
             transition: all 0.3s;
+            box-shadow: 0 3px 0 #7aaf71;
+            font-weight: 700;
         }
         
-        .number-card:hover {
-            transform: scale(1.05);
+        .answer-btn:hover {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #7aaf71;
         }
         
-        .number-word {
-            font-size: 1rem;
-            margin-top: 5px;
+        /* Poems section */
+        .poems-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .poem-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--accent1);
+        }
+        
+        .poem-title {
+            color: var(--accent3);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .poem-content {
+            color: var(--dark);
+            line-height: 1.6;
+            font-style: italic;
         }
         
         /* Drawing section */
         .drawing-container {
-            padding: 20px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .canvas-container {
             background: white;
-            border-radius: 20px;
-            margin: 20px auto;
+            border-radius: 15px;
+            flex: 1;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 4px solid #ffd166;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--accent1);
+            margin-bottom: 15px;
         }
         
         #drawing-canvas {
@@ -237,163 +369,129 @@
             display: block;
             cursor: crosshair;
             width: 100%;
-            height: 300px;
+            height: 100%;
         }
         
         .color-picker {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 8px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
         }
         
         .color-option {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
-            border: 3px solid white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s;
         }
         
         .color-option:hover, .color-option.active {
-            transform: scale(1.1);
-            border: 3px solid #333;
+            transform: scale(1.15);
+            border: 2px solid var(--dark);
         }
         
-        /* Language selector */
-        .language-selector {
+        .drawing-controls {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin: 15px 0;
-            flex-wrap: wrap;
         }
         
-        .lang-btn {
-            background: #6ec4db;
+        .control-btn {
+            background: var(--accent3);
             color: white;
             border: none;
-            border-radius: 15px;
-            padding: 8px 15px;
-            font-weight: bold;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 3px 0 #7a5bc7;
             transition: all 0.3s;
         }
         
-        .lang-btn.active {
-            background: #4a8d9f;
-            transform: scale(1.05);
-        }
-        
-        /* Math game section */
-        .math-game {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .problem-container {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 4px solid #ffd166;
-            font-size: 2.5rem;
-            color: #a37afc;
-        }
-        
-        .answer-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .answer-btn {
-            background: #f47b7b;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 15px;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 0 #c45d5d;
-        }
-        
-        .answer-btn:hover {
+        .control-btn:hover {
             transform: translateY(2px);
-            box-shadow: 0 2px 0 #c45d5d;
+            box-shadow: 0 1px 0 #7a5bc7;
         }
         
         /* Footer styles */
         .app-footer {
-            background: #ffd166;
-            padding: 15px;
+            background: var(--accent1);
+            padding: 12px;
             text-align: center;
             font-weight: bold;
-            color: #7a5bc7;
-            font-size: 1rem;
-            border-top: 3px solid #f47b7b;
+            color: var(--accent3);
+            font-size: 0.9rem;
+            border-top: 2px solid var(--accent2);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
         
         .star-container {
             display: flex;
-            gap: 5px;
+            gap: 4px;
+            margin-left: 10px;
         }
         
         .star {
-            font-size: 1.5rem;
-            color: #f47b7b;
+            font-size: 1.2rem;
+            color: var(--accent2);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .app-container {
+                height: 95vh;
+                max-height: none;
+            }
+            
+            .app-title { font-size: 1.6rem; }
+            .home-title { font-size: 1.7rem; }
+            .activity-grid { grid-template-columns: 1fr; }
+            .alphabet-container { grid-template-columns: repeat(3, 1fr); }
+            .answer-options { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.3rem; }
         }
         
         /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .floating {
-            animation: float 4s ease-in-out infinite;
+            50% { transform: translateY(-8px); }
         }
         
         @keyframes celebrate {
             0% { transform: scale(1); }
-            50% { transform: scale(1.5); }
+            50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
         
         .celebrate {
-            animation: celebrate 0.5s ease-in-out;
+            animation: celebrate 0.4s ease-in-out;
         }
         
-        /* Responsive design */
-        @media (max-width: 480px) {
-            .app-title { font-size: 1.8rem; }
-            .home-title { font-size: 2rem; }
-            .activity-grid { grid-template-columns: 1fr; }
-            .alphabet-container { grid-template-columns: repeat(3, 1fr); }
-            .answer-options { grid-template-columns: 1fr; }
+        /* Progress tracker */
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
         }
         
-        /* Decorative elements */
-        .bubble {
-            position: absolute;
+        .progress-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            z-index: 0;
+            background: #ddd;
+            margin: 0 4px;
         }
         
-        .character {
-            position: absolute;
-            z-index: 1;
-            font-size: 3rem;
+        .progress-dot.active {
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
         }
         
         /* Level selector */
@@ -401,23 +499,24 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
+            gap: 10px;
+            margin: 15px 0;
         }
         
         .level-btn {
-            width: 60px;
-            height: 60px;
-            background: #a37afc;
+            width: 50px;
+            height: 50px;
+            background: var(--accent3);
             color: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 4px 0 #7a5bc7;
+            box-shadow: 0 3px 0 #7a5bc7;
             transition: all 0.3s;
+            font-weight: 700;
         }
         
         .level-btn:hover {
@@ -425,125 +524,92 @@
         }
         
         .level-btn.completed {
-            background: #ffd166;
-            color: #7a5bc7;
+            background: var(--success);
+            box-shadow: 0 3px 0 #27ae60;
         }
         
         .level-btn.locked {
             background: #cccccc;
-            box-shadow: 0 4px 0 #999999;
+            box-shadow: 0 3px 0 #999999;
             cursor: not-allowed;
         }
         
-        /* Parental lock overlay */
-        .parental-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(106, 90, 205, 0.9);
-            z-index: 100;
+        /* Toggle switch */
+        .toggle-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            display: none;
-        }
-        
-        .lock-form {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .lock-title {
-            color: #a37afc;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .pin-input {
-            width: 200px;
-            padding: 15px;
-            font-size: 1.5rem;
-            text-align: center;
-            border: 3px solid #ffd166;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .lock-btn {
-            background: #a37afc;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 12px 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 0 #7a5bc7;
-        }
-        
-        .lock-btn:hover {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #7a5bc7;
-        }
-        
-        /* Progress tracker */
-        .progress-container {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 4px solid #ffd166;
-        }
-        
-        .progress-bar {
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
             margin: 10px 0;
-            overflow: hidden;
+            gap: 10px;
         }
         
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, #6ec4db, #a5dd9b);
-            border-radius: 10px;
-            width: 65%;
-            transition: width 0.5s ease;
+        .toggle-label {
+            font-weight: 600;
+            color: var(--accent3);
         }
         
-        .progress-text {
-            text-align: center;
-            font-weight: bold;
-            color: #a37afc;
-        }
-        
-        /* Theme selector */
-        .theme-selector {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .theme-option {
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
             width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 3px solid white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            height: 24px;
         }
         
-        .theme-option.active {
-            border: 3px solid #333;
-            transform: scale(1.1);
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Scrollbar styling */
+        .content-area::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .content-area::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .content-area::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        .content-area::-webkit-scrollbar-thumb:hover {
+            background: var(--accent3);
         }
     </style>
 </head>
@@ -559,8 +625,8 @@
             <button class="nav-btn active" data-section="home">Home</button>
             <button class="nav-btn" data-section="english">English</button>
             <button class="nav-btn" data-section="math">Math</button>
+            <button class="nav-btn" data-section="poems">Poems</button>
             <button class="nav-btn" data-section="drawing">Art</button>
-            <button class="nav-btn" data-section="progress">Progress</button>
         </div>
         
         <!-- Content Area -->
@@ -569,6 +635,12 @@
             <div id="home" class="section-content home-screen">
                 <h1 class="home-title">Welcome to Learning Adventure!</h1>
                 <p class="home-subtitle">Fun educational games for kids 3-10 years old</p>
+                
+                <div class="hero-section">
+                    <p><i class="fas fa-graduation-cap"></i> Learn ABCs, Numbers, Poems and more!</p>
+                    <p><i class="fas fa-paint-brush"></i> Express creativity with drawing tools</p>
+                    <p><i class="fas fa-star"></i> Earn stars and rewards for progress</p>
+                </div>
                 
                 <div class="level-selector">
                     <div class="level-btn completed">1</div>
@@ -588,30 +660,40 @@
                     <div class="activity-card" data-section="math">
                         <div class="activity-icon"><i class="fas fa-calculator"></i></div>
                         <h3 class="activity-title">Math Fun</h3>
-                        <p>Numbers & Counting</p>
+                        <p>Numbers & Operations</p>
+                    </div>
+                    <div class="activity-card" data-section="poems">
+                        <div class="activity-icon"><i class="fas fa-book"></i></div>
+                        <h3 class="activity-title">Poems</h3>
+                        <p>20 Popular Poems</p>
                     </div>
                     <div class="activity-card" data-section="drawing">
                         <div class="activity-icon"><i class="fas fa-paint-brush"></i></div>
                         <h3 class="activity-title">Creative Art</h3>
                         <p>Draw & Color</p>
                     </div>
-                    <div class="activity-card">
-                        <div class="activity-icon"><i class="fas fa-music"></i></div>
-                        <h3 class="activity-title">Music World</h3>
-                        <p>Sounds & Rhymes</p>
-                    </div>
+                </div>
+                
+                <div class="toggle-container">
+                    <span class="toggle-label">Offline Mode</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="offline-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
                 </div>
             </div>
             
             <!-- English Section -->
             <div id="english" class="section-content" style="display:none;">
-                <h2 style="color: #6EC4DB; text-align: center; margin-bottom: 20px;">English Alphabet</h2>
-                <p style="text-align: center; margin-bottom: 20px; color: #F47B7B;">Tap on letters to hear sounds!</p>
+                <h2 class="section-title">English Alphabet</h2>
+                <p class="section-subtitle">Tap on letters to hear sounds!</p>
                 
-                <div class="language-selector">
-                    <button class="lang-btn active">Alphabet</button>
-                    <button class="lang-btn">Words</button>
-                    <button class="lang-btn">Sentences</button>
+                <div class="progress-container">
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
                 </div>
                 
                 <div class="alphabet-container">
@@ -621,35 +703,92 @@
             
             <!-- Math Section -->
             <div id="math" class="section-content" style="display:none;">
-                <h2 style="color: #A37AFC; text-align: center; margin-bottom: 20px;">Math Adventure</h2>
-                <p style="text-align: center; margin-bottom: 20px; color: #6EC4DB;">Solve problems to earn stars!</p>
+                <h2 class="section-title">Math Adventure</h2>
+                <p class="section-subtitle">Explore numbers and operations!</p>
                 
-                <div class="math-game">
-                    <div class="problem-container">
-                        5 + 3 = ?
+                <div class="math-container">
+                    <div class="math-section">
+                        <h3 class="math-title">Counting Practice</h3>
+                        <div class="counter">
+                            <span id="counter-value">1</span>
+                        </div>
+                        <div class="counter-controls">
+                            <button class="counter-btn" id="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                            <button class="counter-btn" id="next-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <button class="control-btn" id="speak-btn">Speak Number</button>
                     </div>
                     
-                    <div class="answer-options">
-                        <button class="answer-btn">7</button>
-                        <button class="answer-btn">8</button>
-                        <button class="answer-btn">9</button>
-                        <button class="answer-btn">6</button>
+                    <div class="math-section">
+                        <h3 class="math-title">Math Practice (Level 5)</h3>
+                        <div class="problem-container">
+                            7 × 8 = ?
+                        </div>
+                        
+                        <div class="answer-options">
+                            <button class="answer-btn">54</button>
+                            <button class="answer-btn">56</button>
+                            <button class="answer-btn">49</button>
+                            <button class="answer-btn">64</button>
+                        </div>
+                        
+                        <button class="control-btn">Next Problem</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Poems Section -->
+            <div id="poems" class="section-content" style="display:none;">
+                <h2 class="section-title">Popular Poems</h2>
+                <p class="section-subtitle">20 popular poems for children</p>
+                
+                <div class="poems-container">
+                    <div class="poem-card">
+                        <h3 class="poem-title">Twinkle, Twinkle, Little Star</h3>
+                        <p class="poem-content">
+                            Twinkle, twinkle, little star,<br>
+                            How I wonder what you are!<br>
+                            Up above the world so high,<br>
+                            Like a diamond in the sky.
+                        </p>
                     </div>
                     
-                    <button class="nav-btn" style="background: #6EC4DB;">Next Problem</button>
+                    <div class="poem-card">
+                        <h3 class="poem-title">Humpty Dumpty</h3>
+                        <p class="poem-content">
+                            Humpty Dumpty sat on a wall,<br>
+                            Humpty Dumpty had a great fall.<br>
+                            All the king's horses and all the king's men<br>
+                            Couldn't put Humpty together again.
+                        </p>
+                    </div>
+                    
+                    <div class="poem-card">
+                        <h3 class="poem-title">Jack and Jill</h3>
+                        <p class="poem-content">
+                            Jack and Jill went up the hill<br>
+                            To fetch a pail of water.<br>
+                            Jack fell down and broke his crown,<br>
+                            And Jill came tumbling after.
+                        </p>
+                    </div>
+                    
+                    <div class="poem-card">
+                        <h3 class="poem-title">Baa, Baa, Black Sheep</h3>
+                        <p class="poem-content">
+                            Baa, baa, black sheep,<br>
+                            Have you any wool?<br>
+                            Yes sir, yes sir,<br>
+                            Three bags full.
+                        </p>
+                    </div>
                 </div>
             </div>
             
             <!-- Drawing Section -->
             <div id="drawing" class="section-content" style="display:none;">
-                <h2 style="color: #A37AFC; text-align: center; margin-bottom: 10px;">Creative Drawing</h2>
-                <p style="text-align: center; margin-bottom: 20px; color: #6EC4DB;">Draw your masterpiece!</p>
-                
-                <div class="theme-selector">
-                    <div class="theme-option active" style="background: linear-gradient(135deg, #6EC4DB, #A5DD9B);"></div>
-                    <div class="theme-option" style="background: linear-gradient(135deg, #F47B7B, #A37AFC);"></div>
-                    <div class="theme-option" style="background: linear-gradient(135deg, #FFD166, #F47B7B);"></div>
-                </div>
+                <h2 class="section-title">Creative Drawing</h2>
+                <p class="section-subtitle">Express your creativity!</p>
                 
                 <div class="drawing-container">
                     <div class="canvas-container">
@@ -663,48 +802,20 @@
                         <div class="color-option" style="background-color: #FFD166;" data-color="#FFD166"></div>
                         <div class="color-option" style="background-color: #A37AFC;" data-color="#A37AFC"></div>
                         <div class="color-option" style="background-color: #A5DD9B;" data-color="#A5DD9B"></div>
+                        <div class="color-option" style="background-color: #ffffff; border: 1px solid #ccc;" data-color="#ffffff"></div>
                     </div>
                     
-                    <button class="nav-btn" id="clear-canvas" style="background: #F47B7B;">Clear Drawing</button>
-                </div>
-            </div>
-            
-            <!-- Progress Section -->
-            <div id="progress" class="section-content" style="display:none;">
-                <h2 style="color: #A37AFC; text-align: center; margin-bottom: 20px;">Your Progress</h2>
-                <p style="text-align: center; margin-bottom: 20px; color: #6EC4DB;">Great job! Keep learning!</p>
-                
-                <div class="progress-container">
-                    <h3 style="color: #F47B7B; text-align: center; margin-bottom: 15px;">English Alphabet</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
+                    <div class="drawing-controls">
+                        <button class="control-btn" id="clear-btn">Clear Canvas</button>
+                        <button class="control-btn" id="save-btn">Save Drawing</button>
                     </div>
-                    <div class="progress-text">65% Complete</div>
-                </div>
-                
-                <div class="progress-container">
-                    <h3 style="color: #6EC4DB; text-align: center; margin-bottom: 15px;">Math Skills</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 45%;"></div>
-                    </div>
-                    <div class="progress-text">45% Complete</div>
-                </div>
-                
-                <div class="progress-container">
-                    <h3 style="color: #A37AFC; text-align: center; margin-bottom: 15px;">Art Projects</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 30%;"></div>
-                    </div>
-                    <div class="progress-text">30% Complete</div>
                 </div>
             </div>
         </div>
         
         <!-- App Footer -->
         <div class="app-footer">
-            <div>
-                <button class="lock-btn" id="parental-lock-btn"><i class="fas fa-lock"></i> Parent Lock</button>
-            </div>
+            <div>Learning Adventure © 2023</div>
             <div class="star-container">
                 <div class="star"><i class="fas fa-star"></i></div>
                 <div class="star"><i class="fas fa-star"></i></div>
@@ -713,28 +824,14 @@
                 <div class="star"><i class="fas fa-star"></i></div>
             </div>
         </div>
-        
-        <!-- Parental Lock Overlay -->
-        <div class="parental-overlay" id="parental-overlay">
-            <div class="lock-form">
-                <h2 class="lock-title">Parental Lock</h2>
-                <p style="margin-bottom: 20px; color: #666;">Enter PIN to unlock settings</p>
-                <input type="password" class="pin-input" id="pin-input" placeholder="1234" maxlength="4">
-                <button class="lock-btn" id="unlock-btn">Unlock</button>
-            </div>
-        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Create decorative bubbles
-            createDecorativeElements();
-            
             // Navigation handling
             const navButtons = document.querySelectorAll('.nav-btn');
             const sectionContents = document.querySelectorAll('.section-content');
             const activityCards = document.querySelectorAll('.activity-card');
-            const langButtons = document.querySelectorAll('.lang-btn');
             
             navButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -747,6 +844,11 @@
                     // Show selected section
                     sectionContents.forEach(content => content.style.display = 'none');
                     document.getElementById(section).style.display = 'block';
+                    
+                    // Resize canvas when drawing section is shown
+                    if(section === 'drawing') {
+                        resizeCanvas();
+                    }
                 });
             });
             
@@ -765,13 +867,11 @@
                     // Show selected section
                     sectionContents.forEach(content => content.style.display = 'none');
                     document.getElementById(section).style.display = 'block';
-                });
-            });
-            
-            langButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    langButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
+                    
+                    // Resize canvas when drawing section is shown
+                    if(section === 'drawing') {
+                        resizeCanvas();
+                    }
                 });
             });
             
@@ -789,12 +889,26 @@
                 {char: 'I', word: 'Ice Cream', emoji: '🍦'},
                 {char: 'J', word: 'Jellyfish', emoji: '🎐'},
                 {char: 'K', word: 'Kite', emoji: '🪁'},
-                {char: 'L', word: 'Lion', emoji: '🦁'}
+                {char: 'L', word: 'Lion', emoji: '🦁'},
+                {char: 'M', word: 'Moon', emoji: '🌙'},
+                {char: 'N', word: 'Nest', emoji: '🐦'},
+                {char: 'O', word: 'Orange', emoji: '🍊'},
+                {char: 'P', word: 'Pizza', emoji: '🍕'},
+                {char: 'Q', word: 'Queen', emoji: '👑'},
+                {char: 'R', word: 'Rainbow', emoji: '🌈'},
+                {char: 'S', word: 'Sun', emoji: '☀️'},
+                {char: 'T', word: 'Tree', emoji: '🌳'},
+                {char: 'U', word: 'Umbrella', emoji: '☔'},
+                {char: 'V', word: 'Violin', emoji: '🎻'},
+                {char: 'W', word: 'Watermelon', emoji: '🍉'},
+                {char: 'X', word: 'Xylophone', emoji: '🎹'},
+                {char: 'Y', word: 'Yacht', emoji: '⛵'},
+                {char: 'Z', word: 'Zebra', emoji: '🦓'}
             ];
             
             englishLetters.forEach(letter => {
                 const card = document.createElement('div');
-                card.className = 'letter-card floating';
+                card.className = 'letter-card';
                 card.innerHTML = `
                     <div class="letter">${letter.char}</div>
                     <div class="letter-example">${letter.emoji} ${letter.word}</div>
@@ -807,13 +921,15 @@
             const canvas = document.getElementById('drawing-canvas');
             const ctx = canvas.getContext('2d');
             const colorOptions = document.querySelectorAll('.color-option');
-            const clearBtn = document.getElementById('clear-canvas');
+            const clearBtn = document.getElementById('clear-btn');
+            const saveBtn = document.getElementById('save-btn');
             
             // Set canvas size
             function resizeCanvas() {
                 const container = canvas.parentElement;
                 canvas.width = container.clientWidth;
-                canvas.height = 300;
+                canvas.height = container.clientHeight;
+                ctx.lineCap = 'round';
             }
             
             resizeCanvas();
@@ -851,7 +967,6 @@
                 ctx.lineTo(x, y);
                 ctx.strokeStyle = strokeColor;
                 ctx.lineWidth = lineWidth;
-                ctx.lineCap = 'round';
                 ctx.stroke();
                 
                 [lastX, lastY] = [x, y];
@@ -859,6 +974,7 @@
             
             function stopDrawing() {
                 isDrawing = false;
+                ctx.beginPath();
             }
             
             function getCoordinates(e) {
@@ -887,6 +1003,15 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
             });
             
+            // Save canvas
+            saveBtn.addEventListener('click', function() {
+                const dataUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = 'my-drawing.png';
+                link.href = dataUrl;
+                link.click();
+            });
+            
             // Speech functions
             function speakLetter(letter) {
                 if ('speechSynthesis' in window) {
@@ -897,117 +1022,63 @@
                 }
             }
             
-            // Create decorative bubbles and characters
-            function createDecorativeElements() {
-                const container = document.querySelector('.content-area');
-                
-                // Create bubbles
-                for (let i = 0; i < 15; i++) {
-                    const bubble = document.createElement('div');
-                    bubble.className = 'bubble';
-                    const size = Math.random() * 60 + 20;
-                    const posX = Math.random() * 100;
-                    const posY = Math.random() * 100;
-                    const animationDelay = Math.random() * 5;
-                    
-                    bubble.style.width = `${size}px`;
-                    bubble.style.height = `${size}px`;
-                    bubble.style.left = `${posX}%`;
-                    bubble.style.top = `${posY}%`;
-                    bubble.style.animationDelay = `${animationDelay}s`;
-                    bubble.style.opacity = Math.random() * 0.5 + 0.1;
-                    
-                    container.appendChild(bubble);
+            // Math counter functionality
+            const counterValue = document.getElementById('counter-value');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const speakBtn = document.getElementById('speak-btn');
+            let counter = 1;
+            
+            prevBtn.addEventListener('click', function() {
+                if(counter > 1) {
+                    counter--;
+                    updateCounter();
                 }
-                
-                // Create floating characters
-                const characters = ['🐶', '🐱', '🐰', '🦊', '🐻', '🐼', '🐯', '🦁', '🐮', '🐷'];
-                for (let i = 0; i < 5; i++) {
-                    const char = document.createElement('div');
-                    char.className = 'character floating';
-                    char.textContent = characters[Math.floor(Math.random() * characters.length)];
-                    
-                    const posX = Math.random() * 80 + 10;
-                    const posY = Math.random() * 80 + 10;
-                    const animationDelay = Math.random() * 3;
-                    
-                    char.style.left = `${posX}%`;
-                    char.style.top = `${posY}%`;
-                    char.style.animationDelay = `${animationDelay}s`;
-                    char.style.fontSize = `${Math.random() * 2 + 2}rem`;
-                    
-                    container.appendChild(char);
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                if(counter < 500) {
+                    counter++;
+                    updateCounter();
                 }
+            });
+            
+            speakBtn.addEventListener('click', function() {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(counter.toString());
+                    utterance.pitch = 1.1;
+                    utterance.rate = 0.9;
+                    speechSynthesis.speak(utterance);
+                }
+            });
+            
+            function updateCounter() {
+                counterValue.textContent = counter;
             }
             
-            // Parental lock functionality
-            const lockBtn = document.getElementById('parental-lock-btn');
-            const overlay = document.getElementById('parental-overlay');
-            const unlockBtn = document.getElementById('unlock-btn');
-            const pinInput = document.getElementById('pin-input');
-            
-            lockBtn.addEventListener('click', function() {
-                overlay.style.display = 'flex';
-            });
-            
-            unlockBtn.addEventListener('click', function() {
-                if(pinInput.value === '1234') {
-                    overlay.style.display = 'none';
-                    pinInput.value = '';
-                    
-                    // Show a celebration effect
-                    lockBtn.innerHTML = '<i class="fas fa-lock-open"></i> Unlocked';
-                    lockBtn.classList.add('celebrate');
-                    setTimeout(() => {
-                        lockBtn.classList.remove('celebrate');
-                    }, 1000);
-                } else {
-                    pinInput.value = '';
-                    pinInput.placeholder = 'Wrong PIN! Try 1234';
-                }
-            });
-            
-            // Math game functionality
+            // Math answer buttons
             const answerButtons = document.querySelectorAll('.answer-btn');
-            const problemContainer = document.querySelector('.problem-container');
-            const stars = document.querySelectorAll('.star');
-            let starCount = 2;
             
             // Set up answer buttons
             answerButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    if(this.textContent === '8') {
+                    if(this.textContent === '56') {
                         // Correct answer
-                        this.style.background = '#A5DD9B';
-                        this.style.boxShadow = '0 4px 0 #7aaf71';
+                        this.style.background = '#2ecc71';
+                        this.style.boxShadow = '0 3px 0 #27ae60';
                         
                         // Celebrate
                         this.classList.add('celebrate');
                         setTimeout(() => {
                             this.classList.remove('celebrate');
                         }, 1000);
-                        
-                        // Add a star
-                        if(starCount < 5) {
-                            starCount++;
-                            stars[starCount-1].style.color = '#FFD166';
-                            stars[starCount-1].classList.add('celebrate');
-                            setTimeout(() => {
-                                stars[starCount-1].classList.remove('celebrate');
-                            }, 1000);
-                        }
                     } else {
                         // Wrong answer
-                        this.style.background = '#F47B7B';
-                        this.style.boxShadow = '0 4px 0 #c45d5d';
+                        this.style.background = '#e74c3c';
+                        this.style.boxShadow = '0 3px 0 #c0392b';
                     }
                 });
             });
-            
-            // Initialize stars
-            for(let i = 0; i < starCount; i++) {
-                stars[i].style.color = '#FFD166';
-            }
         });
     </script>
 </body>
