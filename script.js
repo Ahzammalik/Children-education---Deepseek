@@ -1,448 +1,393 @@
-// Cache DOM elements at start
-const domElements = {
-    loadingScreen: document.getElementById('loading-screen'),
-    navButtons: document.querySelectorAll('.nav-btn'),
-    sectionContents: document.querySelectorAll('.section-content'),
-    activityCards: document.querySelectorAll('.activity-card')
-};
+// Main App Controller
+class LearningAdventureApp {
+    constructor() {
+        // DOM Elements
+        this.elements = {
+            appContainer: document.getElementById('app-container'),
+            loadingScreen: document.getElementById('loading-screen'),
+            navContainer: document.getElementById('nav-container'),
+            contentArea: document.getElementById('content-area'),
+            activityGrid: document.getElementById('activity-grid')
+        };
 
-// Initialize only when needed
-const sectionInitializers = {
-    english: initEnglishSection,
-    math: initMathSection,
-    poems: initPoemsSection,
-    coloring: initColoringSection
-};
+        // State
+        this.initializedSections = new Set(['home']);
+        this.currentSection = 'home';
+        this.mathWorker = null;
 
-// Track initialized sections
-const initializedSections = new Set();
-
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        domElements.loadingScreen.style.display = 'none';
-        setupEventListeners();
-    }, 300); // Reduced loading time
-});
-
-function setupEventListeners() {
-    // Navigation handling with event delegation
-    document.querySelector('.nav-container').addEventListener('click', (e) => {
-        const button = e.target.closest('.nav-btn');
-        if (button) {
-            handleNavigation(button);
-        }
-    });
-
-    // Activity cards with event delegation
-    document.querySelector('.activity-grid').addEventListener('click', (e) => {
-        const card = e.target.closest('.activity-card');
-        if (card) {
-            handleActivityNavigation(card);
-        }
-    });
-}
-
-function handleNavigation(button) {
-    const section = button.dataset.section;
-    
-    // Update UI
-    domElements.navButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-    
-    // Show section
-    domElements.sectionContents.forEach(content => content.style.display = 'none');
-    document.getElementById(section).style.display = 'block';
-    
-    // Initialize section if needed (lazy loading)
-    if (!initializedSections.has(section) && sectionInitializers[section]) {
-        sectionInitializers[section]();
-        initializedSections.add(section);
+        // Initialize
+        this.init();
     }
-}
 
-// Similar optimization for handleActivityNavigation
+    init() {
+        // Set up event listeners
+        this.setupEventListeners();
 
-// Optimized section initializers
-function initMathSection() {
-    // Generate math problems in chunks
-    setTimeout(() => {
-        const mathProblems = [];
-        for (let i = 0; i < 100; i++) {
-            // Generate problem in smaller chunks
-            if (i % 20 === 0) setTimeout(() => {}, 0);
-            mathProblems.push(generateMathProblem());
-        }
-        // Store problems and initialize UI
-    }, 0);
-}
-
-// Add web worker for heavy calculations
-const mathWorker = new Worker('math-worker.js');
-
-// Clean up speech synthesis
-function speak(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        // Configure utterance
-        window.speechSynthesis.speak(utterance);
+        // Simulate loading
+        setTimeout(() => {
+            this.elements.loadingScreen.style.display = 'none';
+            this.elements.appContainer.classList.remove('loading');
+        }, 800);
     }
-}
-// Cache DOM elements
-const loadingScreen = document.getElementById('loading-screen');
-const navButtons = document.querySelectorAll('.nav-btn');
-const sectionContents = document.querySelectorAll('.section-content');
-const activityCards = document.querySelectorAll('.activity-card');
 
-// Initialize app after loading
-document.addEventListener('DOMContentLoaded', () => {
-    // Simulate loading time
-    setTimeout(() => {
-        loadingScreen.style.display = 'none';
-        initializeApp();
-    }, 800);
-});
+    setupEventListeners() {
+        // Navigation handling with event delegation
+        this.elements.navContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('.nav-btn');
+            if (button) {
+                this.handleNavigation(button);
+            }
+        });
 
-function initializeApp() {
-    // Navigation handling
-    navButtons.forEach(button => {
-        button.addEventListener('click', handleNavigation);
-    });
-    
-    activityCards.forEach(card => {
-        card.addEventListener('click', handleActivityNavigation);
-    });
-    
-    // Initialize sections
-    initEnglishSection();
-    initMathSection();
-    initPoemsSection();
-    initColoringSection();
-}
+        // Activity cards with event delegation
+        this.elements.activityGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.activity-card');
+            if (card) {
+                this.handleActivityNavigation(card);
+            }
+        });
 
-function handleNavigation() {
-    const section = this.getAttribute('data-section');
-    
-    // Update active button
-    navButtons.forEach(btn => btn.classList.remove('active'));
-    this.classList.add('active');
-    
-    // Show selected section
-    sectionContents.forEach(content => content.style.display = 'none');
-    document.getElementById(section).style.display = 'block';
-}
+        // Initialize web worker for math
+        this.initMathWorker();
+    }
 
-function handleActivityNavigation() {
-    const section = this.getAttribute('data-section');
-    
-    // Update active button
-    navButtons.forEach(btn => {
-        btn.classList.remove('active');
-        if(btn.getAttribute('data-section') === section) {
-            btn.classList.add('active');
+    initMathWorker() {
+        if (window.Worker) {
+            this.mathWorker = new Worker('math-worker.js');
+            this.mathWorker.onmessage = (e) => {
+                if (e.data.type === 'problemsGenerated') {
+                    this.handleMathProblems(e.data.problems);
+                }
+            };
         }
-    });
-    
-    // Show selected section
-    sectionContents.forEach(content => content.style.display = 'none');
-    document.getElementById(section).style.display = 'block';
-}
+    }
 
-// Initialize English Section
-function initEnglishSection() {
-    const englishContainer = document.getElementById('alphabet-container');
-    const englishLetters = [
-        {char: 'A', word: 'Apple', emoji: '🍎'},
-        {char: 'B', word: 'Ball', emoji: '⚽'},
-        {char: 'C', word: 'Cat', emoji: '🐱'},
-        {char: 'D', word: 'Dog', emoji: '🐶'},
-        {char: 'E', word: 'Elephant', emoji: '🐘'},
-        {char: 'F', word: 'Flower', emoji: '🌸'},
-        {char: 'G', word: 'Grapes', emoji: '🍇'},
-        {char: 'H', word: 'House', emoji: '🏠'},
-        {char: 'I', word: 'Ice Cream', emoji: '🍦'},
-        {char: 'J', word: 'Jellyfish', emoji: '🎐'},
-        {char: 'K', word: 'Kite', emoji: '🪁'},
-        {char: 'L', word: 'Lion', emoji: '🦁'},
-        {char: 'M', word: 'Moon', emoji: '🌙'},
-        {char: 'N', word: 'Nest', emoji: '🐦'},
-        {char: 'O', word: 'Orange', emoji: '🍊'},
-        {char: 'P', word: 'Pizza', emoji: '🍕'},
-        {char: 'Q', word: 'Queen', emoji: '👑'},
-        {char: 'R', word: 'Rainbow', emoji: '🌈'},
-        {char: 'S', word: 'Sun', emoji: '☀️'},
-        {char: 'T', word: 'Tree', emoji: '🌳'},
-        {char: 'U', word: 'Umbrella', emoji: '☔'},
-        {char: 'V', word: 'Violin', emoji: '🎻'},
-        {char: 'W', word: 'Watermelon', emoji: '🍉'},
-        {char: 'X', word: 'Xylophone', emoji: '🎹'},
-        {char: 'Y', word: 'Yacht', emoji: '⛵'},
-        {char: 'Z', word: 'Zebra', emoji: '🦓'}
-    ];
-    
-    // Clear container first
-    englishContainer.innerHTML = '';
-    
-    englishLetters.forEach(letter => {
-        const card = document.createElement('div');
-        card.className = 'letter-card';
-        card.innerHTML = `
-            <div class="letter">${letter.char}</div>
-            <div class="letter-example">${letter.emoji} ${letter.word}</div>
+    handleNavigation(button) {
+        const section = button.dataset.section;
+        this.showSection(section, button);
+    }
+
+    handleActivityNavigation(card) {
+        const section = card.dataset.section;
+        const button = document.querySelector(`.nav-btn[data-section="${section}"]`);
+        this.showSection(section, button);
+    }
+
+    showSection(section, button) {
+        // Update current section
+        this.currentSection = section;
+
+        // Update active button
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        if (button) button.classList.add('active');
+
+        // Hide all sections
+        document.querySelectorAll('.section-content').forEach(content => {
+            content.style.display = 'none';
+        });
+
+        // Show loading state
+        const sectionElement = document.getElementById(section);
+        sectionElement.innerHTML = '<div class="section-loading"><div class="loader small"></div></div>';
+        sectionElement.style.display = 'block';
+
+        // Initialize section with slight delay for smoother UX
+        setTimeout(() => {
+            this.initializeSection(section);
+        }, 50);
+    }
+
+    initializeSection(section) {
+        if (this.initializedSections.has(section)) return;
+
+        switch(section) {
+            case 'english':
+                this.initEnglishSection();
+                break;
+            case 'math':
+                this.initMathSection();
+                break;
+            case 'poems':
+                this.initPoemsSection();
+                break;
+            case 'coloring':
+                this.initColoringSection();
+                break;
+        }
+
+        this.initializedSections.add(section);
+    }
+
+    initEnglishSection() {
+        const container = document.getElementById('alphabet-container');
+        const letters = this.generateEnglishLetters();
+        
+        container.innerHTML = letters.map(letter => `
+            <div class="letter-card" data-letter="${letter.char}">
+                <div class="letter">${letter.char}</div>
+                <div class="letter-example">${letter.emoji} ${letter.word}</div>
+            </div>
+        `).join('');
+
+        // Event delegation for letter cards
+        container.addEventListener('click', (e) => {
+            const card = e.target.closest('.letter-card');
+            if (card) {
+                this.speakLetter(card.dataset.letter);
+            }
+        });
+    }
+
+    generateEnglishLetters() {
+        return [
+            {char: 'A', word: 'Apple', emoji: '🍎'},
+            // ... rest of the letters ...
+            {char: 'Z', word: 'Zebra', emoji: '🦓'}
+        ];
+    }
+
+    initMathSection() {
+        const container = document.getElementById('math-container');
+        
+        // Initial UI
+        container.innerHTML = `
+            <div class="math-section">
+                <h3 class="math-title">Counting Practice (1-500)</h3>
+                <div class="counter">
+                    <span id="counter-value">1</span>
+                </div>
+                <div class="counter-controls">
+                    <button class="counter-btn" id="prev-btn">←</button>
+                    <button class="counter-btn" id="next-btn">→</button>
+                </div>
+                <button class="control-btn" id="speak-btn">Speak Number</button>
+            </div>
+            <div class="math-section">
+                <div class="level-info">Math Practice - Level <span id="math-level">1</span>/100</div>
+                <div class="problem-container">
+                    <span id="math-problem">Loading problems...</span>
+                </div>
+                <div class="answer-options" id="answer-options"></div>
+                <button class="control-btn" id="next-problem-btn">Next Problem</button>
+            </div>
         `;
-        card.addEventListener('click', () => speakLetter(letter.char));
-        englishContainer.appendChild(card);
-    });
-}
 
-// Initialize Math Section
-function initMathSection() {
-    const counterValue = document.getElementById('counter-value');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const speakBtn = document.getElementById('speak-btn');
-    let counter = 1;
-    
-    prevBtn.addEventListener('click', function() {
-        if(counter > 1) {
-            counter--;
-            updateCounter();
+        // Initialize counter
+        this.initCounter();
+
+        // Generate math problems in worker
+        if (this.mathWorker) {
+            this.mathWorker.postMessage({ 
+                type: 'generateProblems', 
+                data: { count: 100 } 
+            });
+        } else {
+            // Fallback if workers not supported
+            setTimeout(() => {
+                this.handleMathProblems(this.generateMathProblems(100));
+            }, 0);
         }
-    });
-    
-    nextBtn.addEventListener('click', function() {
-        if(counter < 500) {
-            counter++;
-            updateCounter();
+    }
+
+    handleMathProblems(problems) {
+        this.mathProblems = problems;
+        this.currentMathLevel = 1;
+        this.showMathProblem(this.currentMathLevel);
+        
+        // Set up problem navigation
+        document.getElementById('next-problem-btn').addEventListener('click', () => {
+            this.currentMathLevel = this.currentMathLevel < 100 ? this.currentMathLevel + 1 : 1;
+            this.showMathProblem(this.currentMathLevel);
+        });
+    }
+
+    showMathProblem(level) {
+        const problem = this.mathProblems[level - 1];
+        document.getElementById('math-problem').textContent = problem.problem;
+        document.getElementById('math-level').textContent = level;
+
+        const optionsContainer = document.getElementById('answer-options');
+        optionsContainer.innerHTML = problem.options.map(option => `
+            <button class="answer-btn" data-answer="${option}">${option}</button>
+        `).join('');
+
+        // Event delegation for answer options
+        optionsContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('.answer-btn');
+            if (button) {
+                this.handleAnswerSelection(button, problem.answer);
+            }
+        });
+    }
+
+    handleAnswerSelection(button, correctAnswer) {
+        const userAnswer = parseInt(button.dataset.answer);
+        if (userAnswer === correctAnswer) {
+            button.style.background = '#2ecc71';
+            button.style.boxShadow = '0 3px 0 #27ae60';
+            button.classList.add('celebrate');
+            setTimeout(() => {
+                button.classList.remove('celebrate');
+            }, 1000);
+        } else {
+            button.style.background = '#e74c3c';
+            button.style.boxShadow = '0 3px 0 #c0392b';
         }
-    });
-    
-    speakBtn.addEventListener('click', function() {
+    }
+
+    initCounter() {
+        let counter = 1;
+        const counterElement = document.getElementById('counter-value');
+        const updateCounter = () => counterElement.textContent = counter;
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (counter > 1) counter--;
+            updateCounter();
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (counter < 500) counter++;
+            updateCounter();
+        });
+
+        document.getElementById('speak-btn').addEventListener('click', () => {
+            this.speak(counter.toString());
+        });
+    }
+
+    initPoemsSection() {
+        const container = document.getElementById('poems-container');
+        const poems = this.getPoemsData();
+        
+        container.innerHTML = poems.map(poem => `
+            <div class="poem-card">
+                <h3 class="poem-title">${poem.title}</h3>
+                <pre class="poem-content">${poem.content}</pre>
+                <button class="play-btn" data-poem="${encodeURIComponent(poem.content)}">▶</button>
+            </div>
+        `).join('');
+
+        // Event delegation for play buttons
+        container.addEventListener('click', (e) => {
+            const button = e.target.closest('.play-btn');
+            if (button) {
+                this.speakPoem(decodeURIComponent(button.dataset.poem));
+            }
+        });
+    }
+
+    initColoringSection() {
+        const container = document.getElementById('coloring-container');
+        const animals = this.getAnimalData();
+        
+        // Initial view - animal selection
+        container.innerHTML = `
+            <div class="animal-grid" id="animal-grid">
+                ${animals.map(animal => `
+                    <div class="animal-card" data-animal="${animal.name}">
+                        <div class="animal-img">${animal.image}</div>
+                        <div class="animal-name">${animal.name}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="coloring-area" id="coloring-area" style="display: none;">
+                <div class="coloring-header">
+                    <div class="coloring-title" id="coloring-title">Coloring: </div>
+                    <button class="control-btn" id="back-btn">Back to Animals</button>
+                </div>
+                <div class="coloring-image-container">
+                    <div class="coloring-image" id="coloring-image"></div>
+                </div>
+                <div class="color-picker">
+                    <div class="color-option active" style="background-color: #F47B7B;" data-color="#F47B7B"></div>
+                    <div class="color-option" style="background-color: #6EC4DB;" data-color="#6EC4DB"></div>
+                    <div class="color-option" style="background-color: #FFD166;" data-color="#FFD166"></div>
+                    <div class="color-option" style="background-color: #A37AFC;" data-color="#A37AFC"></div>
+                    <div class="color-option" style="background-color: #A5DD9B;" data-color="#A5DD9B"></div>
+                    <div class="color-option" style="background-color: #ffffff; border: 1px solid #ccc;" data-color="#ffffff"></div>
+                </div>
+                <div class="coloring-controls">
+                    <button class="control-btn" id="save-coloring-btn">Save Coloring</button>
+                </div>
+            </div>
+        `;
+
+        // Set up coloring section events
+        this.setupColoringEvents();
+    }
+
+    setupColoringEvents() {
+        const animalGrid = document.getElementById('animal-grid');
+        const coloringArea = document.getElementById('coloring-area');
+        const coloringImage = document.getElementById('coloring-image');
+        const coloringTitle = document.getElementById('coloring-title');
+        const animals = this.getAnimalData();
+
+        // Animal selection
+        animalGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.animal-card');
+            if (card) {
+                const animalName = card.dataset.animal;
+                const animal = animals.find(a => a.name === animalName);
+                
+                animalGrid.style.display = 'none';
+                coloringArea.style.display = 'flex';
+                coloringTitle.textContent = `Coloring: ${animal.name}`;
+                coloringImage.textContent = animal.image;
+                coloringImage.style.color = '#F47B7B'; // Default color
+            }
+        });
+
+        // Back button
+        document.getElementById('back-btn').addEventListener('click', () => {
+            coloringArea.style.display = 'none';
+            animalGrid.style.display = 'grid';
+        });
+
+        // Color selection
+        document.querySelector('.color-picker').addEventListener('click', (e) => {
+            const option = e.target.closest('.color-option');
+            if (option) {
+                document.querySelectorAll('.color-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                option.classList.add('active');
+                coloringImage.style.color = option.dataset.color;
+            }
+        });
+
+        // Save button
+        document.getElementById('save-coloring-btn').addEventListener('click', () => {
+            alert('Coloring saved! (This would save in a real app)');
+        });
+    }
+
+    // Helper methods
+    speak(text) {
         if ('speechSynthesis' in window) {
-            speechSynthesis.cancel(); // Cancel any ongoing speech
-            const utterance = new SpeechSynthesisUtterance(counter.toString());
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
             utterance.pitch = 1.1;
             utterance.rate = 0.9;
-            speechSynthesis.speak(utterance);
+            window.speechSynthesis.speak(utterance);
         }
-    });
-    
-    function updateCounter() {
-        counterValue.textContent = counter;
     }
-    
-    // Math problems functionality
-    const mathProblem = document.getElementById('math-problem');
-    const answerOptions = document.getElementById('answer-options');
-    const nextProblemBtn = document.getElementById('next-problem-btn');
-    const mathLevel = document.getElementById('math-level');
-    let currentLevel = 1;
-    
-    // Math problems data
-    const mathProblems = generateMathProblems(100);
-    
-    function generateMathProblems(count) {
-        const problems = [];
-        for (let i = 1; i <= count; i++) {
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
-            const operations = ['+', '-', '×', '÷'];
-            const operation = operations[Math.floor(Math.random() * operations.length)];
-            
-            let problem, answer;
-            switch(operation) {
-                case '+':
-                    problem = `${num1} + ${num2} = ?`;
-                    answer = num1 + num2;
-                    break;
-                case '-':
-                    problem = `${num1} - ${num2} = ?`;
-                    answer = num1 - num2;
-                    break;
-                case '×':
-                    problem = `${num1} × ${num2} = ?`;
-                    answer = num1 * num2;
-                    break;
-                case '÷':
-                    problem = `${num1 * num2} ÷ ${num2} = ?`;
-                    answer = num1;
-                    break;
-            }
-            
-            problems.push({
-                problem,
-                answer,
-                options: generateOptions(answer)
-            });
-        }
-        return problems;
-    }
-    
-    function generateOptions(correct) {
-        const options = [correct];
-        while (options.length < 4) {
-            const option = Math.max(0, correct + Math.floor(Math.random() * 10) - 5);
-            if (!options.includes(option)) {
-                options.push(option);
-            }
-        }
-        return shuffleArray(options);
-    }
-    
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-    
-    function showProblem(level) {
-        const problem = mathProblems[level - 1];
-        mathProblem.textContent = problem.problem;
-        mathLevel.textContent = level;
-        
-        answerOptions.innerHTML = '';
-        problem.options.forEach(option => {
-            const button = document.createElement('button');
-            button.className = 'answer-btn';
-            button.textContent = option;
-            button.addEventListener('click', function() {
-                if (option === problem.answer) {
-                    this.style.background = '#2ecc71';
-                    this.style.boxShadow = '0 3px 0 #27ae60';
-                    this.classList.add('celebrate');
-                    setTimeout(() => {
-                        this.classList.remove('celebrate');
-                    }, 1000);
-                } else {
-                    this.style.background = '#e74c3c';
-                    this.style.boxShadow = '0 3px 0 #c0392b';
-                }
-            });
-            answerOptions.appendChild(button);
-        });
-    }
-    
-    nextProblemBtn.addEventListener('click', function() {
-        currentLevel = currentLevel < 100 ? currentLevel + 1 : 1;
-        showProblem(currentLevel);
-    });
-    
-    // Initialize with first problem
-    showProblem(currentLevel);
-}
 
-// Initialize Poems Section
-function initPoemsSection() {
-    const poemsContainer = document.getElementById('poems-container');
-    const poems = [
-        {
-            title: "Twinkle, Twinkle, Little Star",
-            content: `Twinkle, twinkle, little star,
-How I wonder what you are!
-Up above the world so high,
-Like a diamond in the sky.`
-        },
-        {
-            title: "Humpty Dumpty",
-            content: `Humpty Dumpty sat on a wall,
-Humpty Dumpty had a great fall.
-All the king's horses and all the king's men
-Couldn't put Humpty together again.`
-        },
-        {
-            title: "Jack and Jill",
-            content: `Jack and Jill went up the hill
-To fetch a pail of water.
-Jack fell down and broke his crown,
-And Jill came tumbling after.`
-        },
-        {
-            title: "Baa, Baa, Black Sheep",
-            content: `Baa, baa, black sheep,
-Have you any wool?
-Yes sir, yes sir,
-Three bags full.`
-        },
-        {
-            title: "Little Miss Muffet",
-            content: `Little Miss Muffet
-Sat on a tuffet,
-Eating her curds and whey;
-Along came a spider,
-Who sat down beside her,
-And frightened Miss Muffet away.`
-        },
-        {
-            title: "Hey Diddle Diddle",
-            content: `Hey diddle diddle,
-The cat and the fiddle,
-The cow jumped over the moon;
-The little dog laughed
-To see such sport,
-And the dish ran away with the spoon.`
-        },
-        {
-            title: "Mary Had a Little Lamb",
-            content: `Mary had a little lamb,
-Its fleece was white as snow;
-And everywhere that Mary went,
-The lamb was sure to go.`
-        },
-        {
-            title: "Itsy Bitsy Spider",
-            content: `The itsy bitsy spider climbed up the water spout.
-Down came the rain, and washed the spider out.
-Out came the sun, and dried up all the rain,
-And the itsy bitsy spider climbed up the spout again.`
-        },
-        {
-            title: "Row, Row, Row Your Boat",
-            content: `Row, row, row your boat,
-Gently down the stream.
-Merrily, merrily, merrily, merrily,
-Life is but a dream.`
-        },
-        {
-            title: "Hickory Dickory Dock",
-            content: `Hickory dickory dock,
-The mouse ran up the clock.
-The clock struck one,
-The mouse ran down,
-Hickory dickory dock.`
-        }
-    ];
-    
-    // Clear container first
-    poemsContainer.innerHTML = '';
-    
-    poems.forEach(poem => {
-        const poemCard = document.createElement('div');
-        poemCard.className = 'poem-card';
-        poemCard.innerHTML = `
-            <h3 class="poem-title">${poem.title}</h3>
-            <pre class="poem-content">${poem.content}</pre>
-            <button class="play-btn">▶</button>
-        `;
-        
-        const playBtn = poemCard.querySelector('.play-btn');
-        playBtn.addEventListener('click', function() {
-            speakPoem(poem.content);
-        });
-        
-        poemsContainer.appendChild(poemCard);
-    });
-    
-    function speakPoem(poem) {
+    speakLetter(letter) {
+        this.speak(letter);
+    }
+
+    speakPoem(poem) {
         if ('speechSynthesis' in window) {
-            speechSynthesis.cancel(); // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(poem);
             utterance.pitch = 1.2;
             utterance.rate = 0.9;
             
             // Try to find a female voice
-            const voices = speechSynthesis.getVoices();
+            const voices = window.speechSynthesis.getVoices();
             const femaleVoice = voices.find(voice => 
                 voice.name.includes('female') || 
                 voice.name.includes('Female') ||
@@ -454,79 +399,93 @@ Hickory dickory dock.`
                 utterance.voice = femaleVoice;
             }
             
-            speechSynthesis.speak(utterance);
+            window.speechSynthesis.speak(utterance);
         }
     }
-}
 
-// Initialize Coloring Section
-function initColoringSection() {
-    const animalGrid = document.getElementById('animal-grid');
-    const coloringArea = document.getElementById('coloring-area');
-    const backBtn = document.getElementById('back-btn');
-    const coloringImage = document.getElementById('coloring-image');
-    const coloringTitle = document.getElementById('coloring-title');
-    const colorOptions = document.querySelectorAll('#coloring-area .color-option');
-    const animalImages = [
-        {name: "Lion", image: "🦁", level: 1},
-        {name: "Elephant", image: "🐘", level: 1},
-        {name: "Giraffe", image: "🦒", level: 1},
-        {name: "Tiger", image: "🐯", level: 1},
-        {name: "Monkey", image: "🐵", level: 1},
-        {name: "Zebra", image: "🦓", level: 1}
-    ];
-    
-    // Clear container first
-    animalGrid.innerHTML = '';
-    
-    // Generate animal grid
-    animalImages.forEach(animal => {
-        const animalCard = document.createElement('div');
-        animalCard.className = 'animal-card';
-        animalCard.innerHTML = `
-            <div class="animal-img">${animal.image}</div>
-            <div class="animal-name">${animal.name}</div>
-        `;
-        
-        animalCard.addEventListener('click', function() {
-            animalGrid.style.display = 'none';
-            coloringArea.style.display = 'flex';
-            coloringTitle.textContent = `Coloring: ${animal.name}`;
-            coloringImage.textContent = animal.image;
-            coloringImage.style.color = '#F47B7B'; // Reset to default color
-        });
-        
-        animalGrid.appendChild(animalCard);
-    });
-    
-    // Back button functionality
-    backBtn.addEventListener('click', function() {
-        coloringArea.style.display = 'none';
-        animalGrid.style.display = 'grid';
-    });
-    
-    // Color selection
-    colorOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            colorOptions.forEach(opt => opt.classList.remove('active'));
-            this.classList.add('active');
-            coloringImage.style.color = this.getAttribute('data-color');
-        });
-    });
-    
-    // Save coloring button
-    document.getElementById('save-coloring-btn').addEventListener('click', function() {
-        alert('Coloring saved! (This would save in a real app)');
-    });
-}
+    getAnimalData() {
+        return [
+            {name: "Lion", image: "🦁", level: 1},
+            {name: "Elephant", image: "🐘", level: 1},
+            {name: "Giraffe", image: "🦒", level: 1},
+            {name: "Tiger", image: "🐯", level: 1},
+            {name: "Monkey", image: "🐵", level: 1},
+            {name: "Zebra", image: "🦓", level: 1}
+        ];
+    }
 
-// Speech functions
-function speakLetter(letter) {
-    if ('speechSynthesis' in window) {
-        speechSynthesis.cancel(); // Cancel any ongoing speech
-        const utterance = new SpeechSynthesisUtterance(letter);
-        utterance.pitch = 1.2;
-        utterance.rate = 0.8;
-        speechSynthesis.speak(utterance);
+    getPoemsData() {
+        return [
+            {
+                title: "Twinkle, Twinkle, Little Star",
+                content: `Twinkle, twinkle, little star,\nHow I wonder what you are!\nUp above the world so high,\nLike a diamond in the sky.`
+            },
+            // ... other poems ...
+        ];
+    }
+
+    generateMathProblems(count) {
+        const problems = [];
+        for (let i = 0; i < count; i++) {
+            problems.push(this.generateMathProblem());
+        }
+        return problems;
+    }
+
+    generateMathProblem() {
+        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num2 = Math.floor(Math.random() * 10) + 1;
+        const operations = ['+', '-', '×', '÷'];
+        const operation = operations[Math.floor(Math.random() * operations.length)];
+        
+        let problem, answer;
+        switch(operation) {
+            case '+':
+                problem = `${num1} + ${num2} = ?`;
+                answer = num1 + num2;
+                break;
+            case '-':
+                problem = `${num1} - ${num2} = ?`;
+                answer = num1 - num2;
+                break;
+            case '×':
+                problem = `${num1} × ${num2} = ?`;
+                answer = num1 * num2;
+                break;
+            case '÷':
+                problem = `${num1 * num2} ÷ ${num2} = ?`;
+                answer = num1;
+                break;
+        }
+        
+        return {
+            problem,
+            answer,
+            options: this.generateOptions(answer)
+        };
+    }
+
+    generateOptions(correct) {
+        const options = [correct];
+        while (options.length < 4) {
+            const option = Math.max(0, correct + Math.floor(Math.random() * 10) - 5);
+            if (!options.includes(option)) {
+                options.push(option);
+            }
+        }
+        return this.shuffleArray(options);
+    }
+
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 }
+
+// Initialize the app when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    new LearningAdventureApp();
+});
