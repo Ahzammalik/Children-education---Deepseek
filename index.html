@@ -4,109 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Adventure | Kids Educational App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="app-container" id="app-container">
+    <div class="app-container silver-theme">
+        <!-- Animated Background Elements -->
+        <div class="bg-shapes">
+            <div class="shape-1"></div>
+            <div class="shape-2"></div>
+            <div class="shape-3"></div>
+        </div>
+        
         <!-- Loading Screen -->
         <div class="loading-screen" id="loading-screen">
-            <div class="loader"></div>
-            <p>Loading fun activities...</p>
+            <div class="loader">
+                <div class="loader-inner"></div>
+                <div class="loader-text">L</div>
+                <div class="loader-text">O</div>
+                <div class="loader-text">A</div>
+                <div class="loader-text">D</div>
+                <div class="loader-text">I</div>
+                <div class="loader-text">N</div>
+                <div class="loader-text">G</div>
+            </div>
+            <p class="loading-message">Preparing your learning adventure...</p>
         </div>
         
         <!-- App Header -->
-        <div class="app-header">
-            <h1 class="app-title">Learning Adventure</h1>
-        </div>
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                    <span class="logo-text">Learning Adventure</span>
+                </h1>
+                <div class="header-decoration">
+                    <div class="decoration-line"></div>
+                    <div class="decoration-star"><i class="fas fa-star"></i></div>
+                    <div class="decoration-star"><i class="fas fa-star"></i></div>
+                    <div class="decoration-star"><i class="fas fa-star"></i></div>
+                    <div class="decoration-line"></div>
+                </div>
+            </div>
+        </header>
         
         <!-- Navigation -->
-        <div class="nav-container" id="nav-container">
-            <button class="nav-btn active" data-section="home">Home</button>
-            <button class="nav-btn" data-section="english">English</button>
-            <button class="nav-btn" data-section="math">Math</button>
-            <button class="nav-btn" data-section="poems">Poems</button>
-            <button class="nav-btn" data-section="coloring">Coloring</button>
-        </div>
+        <nav class="nav-container">
+            <div class="nav-buttons">
+                <button class="nav-btn active" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" data-section="english">
+                    <i class="fas fa-language"></i>
+                    <span>English</span>
+                </button>
+                <button class="nav-btn" data-section="math">
+                    <i class="fas fa-calculator"></i>
+                    <span>Math</span>
+                </button>
+                <button class="nav-btn" data-section="poems">
+                    <i class="fas fa-book-open"></i>
+                    <span>Poems</span>
+                </button>
+                <button class="nav-btn" data-section="coloring">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Coloring</span>
+                </button>
+            </div>
+        </nav>
         
-        <!-- Content Area -->
-        <div class="content-area" id="content-area">
-            <!-- Home Screen -->
-            <div id="home" class="section-content home-screen">
-                <h1 class="home-title">Welcome to Learning Adventure!</h1>
-                <p class="home-subtitle">Fun educational games for kids 3-10 years old</p>
-                
-                <div class="hero-section">
-                    <p><span class="emoji">📚</span> Learn ABCs, Numbers, Poems and more!</p>
-                    <p><span class="emoji">🎨</span> Color 100+ cute animals</p>
-                    <p><span class="emoji">⭐</span> Earn stars and rewards for progress</p>
-                </div>
-                
-                <div class="activity-grid" id="activity-grid">
-                    <div class="activity-card" data-section="english">
-                        <div class="activity-icon">🔤</div>
-                        <h3 class="activity-title">English ABC</h3>
-                        <p>Learn A to Z</p>
+        <!-- Main Content -->
+        <main class="content-area">
+            <!-- Home Section -->
+            <section id="home" class="section-content home-screen">
+                <div class="welcome-container">
+                    <div class="welcome-content">
+                        <h1 class="welcome-title">Welcome to <span>Learning Adventure!</span></h1>
+                        <p class="welcome-subtitle">Where education meets fun for kids 3-10 years old</p>
+                        <button class="cta-button pulse-animation">
+                            Let's Begin! <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
-                    <div class="activity-card" data-section="math">
-                        <div class="activity-icon">➕</div>
-                        <h3 class="activity-title">Math Fun</h3>
-                        <p>Numbers & Operations</p>
-                    </div>
-                    <div class="activity-card" data-section="poems">
-                        <div class="activity-icon">📖</div>
-                        <h3 class="activity-title">Poems</h3>
-                        <p>20 Popular Poems</p>
-                    </div>
-                    <div class="activity-card" data-section="coloring">
-                        <div class="activity-icon">🎨</div>
-                        <h3 class="activity-title">Animal Coloring</h3>
-                        <p>100+ Animals</p>
+                    <div class="welcome-image">
+                        <div class="silver-frame">
+                            <img src="https://i.imgur.com/JqYeZLn.png" alt="Happy kids learning" class="floating">
+                        </div>
                     </div>
                 </div>
-            </div>
+                
+                <div class="features-section">
+                    <h2 class="section-title">
+                        <span>Why Choose Learning Adventure?</span>
+                    </h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>Brain-Boosting</h3>
+                            <p>Activities designed to enhance cognitive development</p>
+                            <div class="feature-underline"></div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <h3>Age-Appropriate</h3>
+                            <p>Content tailored for different learning stages</p>
+                            <div class="feature-underline"></div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3>Safe Environment</h3>
+                            <p>100% child-friendly with no ads or trackers</p>
+                            <div class="feature-underline"></div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Progress Tracking</h3>
+                            <p>Monitor your child's learning journey</p>
+                            <div class="feature-underline"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activities-section">
+                    <h2 class="section-title">
+                        <span>Explore Learning Areas</span>
+                    </h2>
+                    <div class="activity-grid">
+                        <div class="activity-card" data-section="english">
+                            <div class="card-content">
+                                <div class="activity-icon">
+                                    <i class="fas fa-language"></i>
+                                </div>
+                                <h3>English ABC</h3>
+                                <p>Master the alphabet with fun games</p>
+                            </div>
+                            <div class="card-hover-content">
+                                <p>Start Learning</p>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="activity-card" data-section="math">
+                            <div class="card-content">
+                                <div class="activity-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <h3>Math Fun</h3>
+                                <p>Numbers, counting, and operations</p>
+                            </div>
+                            <div class="card-hover-content">
+                                <p>Start Learning</p>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="activity-card" data-section="poems">
+                            <div class="card-content">
+                                <div class="activity-icon">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <h3>Poems</h3>
+                                <p>Classic and original children's poems</p>
+                            </div>
+                            <div class="card-hover-content">
+                                <p>Start Learning</p>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="activity-card" data-section="coloring">
+                            <div class="card-content">
+                                <div class="activity-icon">
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                                <h3>Coloring</h3>
+                                <p>Creative expression with animals</p>
+                            </div>
+                            <div class="card-hover-content">
+                                <p>Start Learning</p>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-section">
+                    <h2 class="section-title">
+                        <span>What Parents Say</span>
+                    </h2>
+                    <div class="testimonial-carousel">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left"></i>
+                                <p>My daughter loves Learning Adventure! Her reading has improved dramatically.</p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">S</div>
+                                    <div class="author-info">
+                                        <h4>Sarah M.</h4>
+                                        <p>Parent of 5-year-old</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
-            <!-- English Section -->
-            <div id="english" class="section-content" style="display:none;">
-                <h2 class="section-title">English Alphabet</h2>
-                <p class="section-subtitle">Tap on letters to hear sounds!</p>
-                <div class="alphabet-container" id="alphabet-container"></div>
-            </div>
-            
-            <!-- Math Section -->
-            <div id="math" class="section-content" style="display:none;">
-                <h2 class="section-title">Math Adventure</h2>
-                <p class="section-subtitle">Explore numbers and operations!</p>
-                <div class="math-container" id="math-container"></div>
-            </div>
-            
-            <!-- Poems Section -->
-            <div id="poems" class="section-content" style="display:none;">
-                <h2 class="section-title">Popular Poems</h2>
-                <p class="section-subtitle">Click play to hear the poems</p>
-                <div class="poems-container" id="poems-container"></div>
-            </div>
-            
-            <!-- Coloring Section -->
-            <div id="coloring" class="section-content" style="display:none;">
-                <h2 class="section-title">Animal Coloring Book</h2>
-                <p class="section-subtitle">Level 1 - Farm Animals</p>
-                <div class="coloring-container" id="coloring-container"></div>
-            </div>
-        </div>
+            <!-- Other Sections -->
+            <section id="english" class="section-content"></section>
+            <section id="math" class="section-content"></section>
+            <section id="poems" class="section-content"></section>
+            <section id="coloring" class="section-content"></section>
+        </main>
         
         <!-- App Footer -->
-        <div class="app-footer">
-            <div>Learning Adventure © 2023</div>
-            <div class="star-container">
-                <div class="star">★</div>
-                <div class="star">★</div>
-                <div class="star">★</div>
-                <div class="star">★</div>
-                <div class="star">★</div>
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#"><i class="fas fa-info-circle"></i> About Us</a>
+                    <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+                    <a href="#"><i class="fas fa-lock"></i> Privacy</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Stay Updated</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2023 Learning Adventure. All rights reserved.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </footer>
     </div>
 
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>
