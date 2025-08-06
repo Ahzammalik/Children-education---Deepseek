@@ -1,3 +1,93 @@
+// Cache DOM elements at start
+const domElements = {
+    loadingScreen: document.getElementById('loading-screen'),
+    navButtons: document.querySelectorAll('.nav-btn'),
+    sectionContents: document.querySelectorAll('.section-content'),
+    activityCards: document.querySelectorAll('.activity-card')
+};
+
+// Initialize only when needed
+const sectionInitializers = {
+    english: initEnglishSection,
+    math: initMathSection,
+    poems: initPoemsSection,
+    coloring: initColoringSection
+};
+
+// Track initialized sections
+const initializedSections = new Set();
+
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        domElements.loadingScreen.style.display = 'none';
+        setupEventListeners();
+    }, 300); // Reduced loading time
+});
+
+function setupEventListeners() {
+    // Navigation handling with event delegation
+    document.querySelector('.nav-container').addEventListener('click', (e) => {
+        const button = e.target.closest('.nav-btn');
+        if (button) {
+            handleNavigation(button);
+        }
+    });
+
+    // Activity cards with event delegation
+    document.querySelector('.activity-grid').addEventListener('click', (e) => {
+        const card = e.target.closest('.activity-card');
+        if (card) {
+            handleActivityNavigation(card);
+        }
+    });
+}
+
+function handleNavigation(button) {
+    const section = button.dataset.section;
+    
+    // Update UI
+    domElements.navButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+    
+    // Show section
+    domElements.sectionContents.forEach(content => content.style.display = 'none');
+    document.getElementById(section).style.display = 'block';
+    
+    // Initialize section if needed (lazy loading)
+    if (!initializedSections.has(section) && sectionInitializers[section]) {
+        sectionInitializers[section]();
+        initializedSections.add(section);
+    }
+}
+
+// Similar optimization for handleActivityNavigation
+
+// Optimized section initializers
+function initMathSection() {
+    // Generate math problems in chunks
+    setTimeout(() => {
+        const mathProblems = [];
+        for (let i = 0; i < 100; i++) {
+            // Generate problem in smaller chunks
+            if (i % 20 === 0) setTimeout(() => {}, 0);
+            mathProblems.push(generateMathProblem());
+        }
+        // Store problems and initialize UI
+    }, 0);
+}
+
+// Add web worker for heavy calculations
+const mathWorker = new Worker('math-worker.js');
+
+// Clean up speech synthesis
+function speak(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        // Configure utterance
+        window.speechSynthesis.speak(utterance);
+    }
+}
 // Cache DOM elements
 const loadingScreen = document.getElementById('loading-screen');
 const navButtons = document.querySelectorAll('.nav-btn');
