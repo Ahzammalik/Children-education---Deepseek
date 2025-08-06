@@ -318,6 +318,13 @@
             box-shadow: 0 1px 0 #7aaf71;
         }
         
+        .level-info {
+            text-align: center;
+            color: var(--accent3);
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
         /* Poems section */
         .poems-container {
             display: flex;
@@ -332,6 +339,7 @@
             padding: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
             border: 2px solid var(--accent1);
+            position: relative;
         }
         
         .poem-title {
@@ -345,38 +353,115 @@
             color: var(--dark);
             line-height: 1.6;
             font-style: italic;
+            margin-bottom: 10px;
         }
         
-        /* Drawing section */
-        .drawing-container {
+        .play-btn {
+            background: var(--accent3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            box-shadow: 0 3px 0 #7a5bc7;
+            transition: all 0.3s;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Drawing/Coloring section */
+        .coloring-container {
             display: flex;
             flex-direction: column;
             height: 100%;
         }
         
-        .canvas-container {
-            background: white;
-            border-radius: 15px;
-            flex: 1;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            border: 2px solid var(--accent1);
+        .animal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-bottom: 15px;
         }
         
-        #drawing-canvas {
-            background: #fff;
-            display: block;
-            cursor: crosshair;
+        .animal-card {
+            background: white;
+            border-radius: 15px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--accent1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .animal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .animal-img {
             width: 100%;
-            height: 100%;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+        
+        .animal-name {
+            color: var(--accent3);
+            font-weight: 600;
+        }
+        
+        .coloring-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .coloring-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .coloring-title {
+            color: var(--accent3);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        .coloring-image-container {
+            background: white;
+            border-radius: 15px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--accent1);
+            overflow: hidden;
+        }
+        
+        .coloring-image {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: pointer;
         }
         
         .color-picker {
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 12px;
+            margin: 10px 0;
             flex-wrap: wrap;
         }
         
@@ -395,7 +480,7 @@
             border: 2px solid var(--dark);
         }
         
-        .drawing-controls {
+        .coloring-controls {
             display: flex;
             justify-content: center;
             gap: 10px;
@@ -441,21 +526,6 @@
         .star {
             font-size: 1.2rem;
             color: var(--accent2);
-        }
-        
-        /* Responsive design */
-        @media (max-width: 480px) {
-            .app-container {
-                height: 95vh;
-                max-height: none;
-            }
-            
-            .app-title { font-size: 1.6rem; }
-            .home-title { font-size: 1.7rem; }
-            .activity-grid { grid-template-columns: 1fr; }
-            .alphabet-container { grid-template-columns: repeat(3, 1fr); }
-            .answer-options { grid-template-columns: 1fr; }
-            .section-title { font-size: 1.3rem; }
         }
         
         /* Animations */
@@ -534,65 +604,6 @@
             cursor: not-allowed;
         }
         
-        /* Toggle switch */
-        .toggle-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px 0;
-            gap: 10px;
-        }
-        
-        .toggle-label {
-            font-weight: 600;
-            color: var(--accent3);
-        }
-        
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-        
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-        
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .slider {
-            background-color: var(--success);
-        }
-        
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-        
         /* Scrollbar styling */
         .content-area::-webkit-scrollbar {
             width: 8px;
@@ -626,7 +637,7 @@
             <button class="nav-btn" data-section="english">English</button>
             <button class="nav-btn" data-section="math">Math</button>
             <button class="nav-btn" data-section="poems">Poems</button>
-            <button class="nav-btn" data-section="drawing">Art</button>
+            <button class="nav-btn" data-section="coloring">Coloring</button>
         </div>
         
         <!-- Content Area -->
@@ -638,7 +649,7 @@
                 
                 <div class="hero-section">
                     <p><i class="fas fa-graduation-cap"></i> Learn ABCs, Numbers, Poems and more!</p>
-                    <p><i class="fas fa-paint-brush"></i> Express creativity with drawing tools</p>
+                    <p><i class="fas fa-paint-brush"></i> Color 100+ cute animals</p>
                     <p><i class="fas fa-star"></i> Earn stars and rewards for progress</p>
                 </div>
                 
@@ -667,19 +678,11 @@
                         <h3 class="activity-title">Poems</h3>
                         <p>20 Popular Poems</p>
                     </div>
-                    <div class="activity-card" data-section="drawing">
+                    <div class="activity-card" data-section="coloring">
                         <div class="activity-icon"><i class="fas fa-paint-brush"></i></div>
-                        <h3 class="activity-title">Creative Art</h3>
-                        <p>Draw & Color</p>
+                        <h3 class="activity-title">Animal Coloring</h3>
+                        <p>100+ Animals</p>
                     </div>
-                </div>
-                
-                <div class="toggle-container">
-                    <span class="toggle-label">Offline Mode</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="offline-toggle" checked>
-                        <span class="slider"></span>
-                    </label>
                 </div>
             </div>
             
@@ -708,7 +711,7 @@
                 
                 <div class="math-container">
                     <div class="math-section">
-                        <h3 class="math-title">Counting Practice</h3>
+                        <h3 class="math-title">Counting Practice (1-500)</h3>
                         <div class="counter">
                             <span id="counter-value">1</span>
                         </div>
@@ -720,19 +723,19 @@
                     </div>
                     
                     <div class="math-section">
-                        <h3 class="math-title">Math Practice (Level 5)</h3>
+                        <div class="level-info">Math Practice - Level <span id="math-level">1</span>/100</div>
                         <div class="problem-container">
-                            7 × 8 = ?
+                            <span id="math-problem">5 + 3 = ?</span>
                         </div>
                         
-                        <div class="answer-options">
-                            <button class="answer-btn">54</button>
-                            <button class="answer-btn">56</button>
-                            <button class="answer-btn">49</button>
-                            <button class="answer-btn">64</button>
+                        <div class="answer-options" id="answer-options">
+                            <button class="answer-btn">8</button>
+                            <button class="answer-btn">7</button>
+                            <button class="answer-btn">9</button>
+                            <button class="answer-btn">6</button>
                         </div>
                         
-                        <button class="control-btn">Next Problem</button>
+                        <button class="control-btn" id="next-problem-btn">Next Problem</button>
                     </div>
                 </div>
             </div>
@@ -740,74 +743,45 @@
             <!-- Poems Section -->
             <div id="poems" class="section-content" style="display:none;">
                 <h2 class="section-title">Popular Poems</h2>
-                <p class="section-subtitle">20 popular poems for children</p>
+                <p class="section-subtitle">Click play to hear the poems</p>
                 
-                <div class="poems-container">
-                    <div class="poem-card">
-                        <h3 class="poem-title">Twinkle, Twinkle, Little Star</h3>
-                        <p class="poem-content">
-                            Twinkle, twinkle, little star,<br>
-                            How I wonder what you are!<br>
-                            Up above the world so high,<br>
-                            Like a diamond in the sky.
-                        </p>
-                    </div>
-                    
-                    <div class="poem-card">
-                        <h3 class="poem-title">Humpty Dumpty</h3>
-                        <p class="poem-content">
-                            Humpty Dumpty sat on a wall,<br>
-                            Humpty Dumpty had a great fall.<br>
-                            All the king's horses and all the king's men<br>
-                            Couldn't put Humpty together again.
-                        </p>
-                    </div>
-                    
-                    <div class="poem-card">
-                        <h3 class="poem-title">Jack and Jill</h3>
-                        <p class="poem-content">
-                            Jack and Jill went up the hill<br>
-                            To fetch a pail of water.<br>
-                            Jack fell down and broke his crown,<br>
-                            And Jill came tumbling after.
-                        </p>
-                    </div>
-                    
-                    <div class="poem-card">
-                        <h3 class="poem-title">Baa, Baa, Black Sheep</h3>
-                        <p class="poem-content">
-                            Baa, baa, black sheep,<br>
-                            Have you any wool?<br>
-                            Yes sir, yes sir,<br>
-                            Three bags full.
-                        </p>
-                    </div>
+                <div class="poems-container" id="poems-container">
+                    <!-- Poems will be generated by JS -->
                 </div>
             </div>
             
-            <!-- Drawing Section -->
-            <div id="drawing" class="section-content" style="display:none;">
-                <h2 class="section-title">Creative Drawing</h2>
-                <p class="section-subtitle">Express your creativity!</p>
+            <!-- Coloring Section -->
+            <div id="coloring" class="section-content" style="display:none;">
+                <h2 class="section-title">Animal Coloring Book</h2>
+                <p class="section-subtitle">Level 1 - Farm Animals</p>
                 
-                <div class="drawing-container">
-                    <div class="canvas-container">
-                        <canvas id="drawing-canvas"></canvas>
+                <div class="coloring-container">
+                    <div class="animal-grid" id="animal-grid">
+                        <!-- Animals will be generated by JS -->
                     </div>
                     
-                    <div class="color-picker">
-                        <div class="color-option active" style="background-color: #000;" data-color="#000"></div>
-                        <div class="color-option" style="background-color: #F47B7B;" data-color="#F47B7B"></div>
-                        <div class="color-option" style="background-color: #6EC4DB;" data-color="#6EC4DB"></div>
-                        <div class="color-option" style="background-color: #FFD166;" data-color="#FFD166"></div>
-                        <div class="color-option" style="background-color: #A37AFC;" data-color="#A37AFC"></div>
-                        <div class="color-option" style="background-color: #A5DD9B;" data-color="#A5DD9B"></div>
-                        <div class="color-option" style="background-color: #ffffff; border: 1px solid #ccc;" data-color="#ffffff"></div>
-                    </div>
-                    
-                    <div class="drawing-controls">
-                        <button class="control-btn" id="clear-btn">Clear Canvas</button>
-                        <button class="control-btn" id="save-btn">Save Drawing</button>
+                    <div class="coloring-area" id="coloring-area" style="display: none;">
+                        <div class="coloring-header">
+                            <div class="coloring-title" id="coloring-title">Coloring: Lion</div>
+                            <button class="control-btn" id="back-btn">Back to Animals</button>
+                        </div>
+                        
+                        <div class="coloring-image-container">
+                            <img src="" alt="Animal to color" class="coloring-image" id="coloring-image">
+                        </div>
+                        
+                        <div class="color-picker">
+                            <div class="color-option active" style="background-color: #F47B7B;" data-color="#F47B7B"></div>
+                            <div class="color-option" style="background-color: #6EC4DB;" data-color="#6EC4DB"></div>
+                            <div class="color-option" style="background-color: #FFD166;" data-color="#FFD166"></div>
+                            <div class="color-option" style="background-color: #A37AFC;" data-color="#A37AFC"></div>
+                            <div class="color-option" style="background-color: #A5DD9B;" data-color="#A5DD9B"></div>
+                            <div class="color-option" style="background-color: #ffffff; border: 1px solid #ccc;" data-color="#ffffff"></div>
+                        </div>
+                        
+                        <div class="coloring-controls">
+                            <button class="control-btn" id="save-coloring-btn">Save Coloring</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -844,11 +818,6 @@
                     // Show selected section
                     sectionContents.forEach(content => content.style.display = 'none');
                     document.getElementById(section).style.display = 'block';
-                    
-                    // Resize canvas when drawing section is shown
-                    if(section === 'drawing') {
-                        resizeCanvas();
-                    }
                 });
             });
             
@@ -867,11 +836,6 @@
                     // Show selected section
                     sectionContents.forEach(content => content.style.display = 'none');
                     document.getElementById(section).style.display = 'block';
-                    
-                    // Resize canvas when drawing section is shown
-                    if(section === 'drawing') {
-                        resizeCanvas();
-                    }
                 });
             });
             
@@ -917,111 +881,6 @@
                 englishContainer.appendChild(card);
             });
             
-            // Drawing canvas functionality
-            const canvas = document.getElementById('drawing-canvas');
-            const ctx = canvas.getContext('2d');
-            const colorOptions = document.querySelectorAll('.color-option');
-            const clearBtn = document.getElementById('clear-btn');
-            const saveBtn = document.getElementById('save-btn');
-            
-            // Set canvas size
-            function resizeCanvas() {
-                const container = canvas.parentElement;
-                canvas.width = container.clientWidth;
-                canvas.height = container.clientHeight;
-                ctx.lineCap = 'round';
-            }
-            
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            // Set initial drawing settings
-            let isDrawing = false;
-            let lastX = 0;
-            let lastY = 0;
-            let strokeColor = '#000';
-            let lineWidth = 5;
-            
-            // Set up color picker
-            colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    colorOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    strokeColor = this.getAttribute('data-color');
-                });
-            });
-            
-            // Drawing functions
-            function startDrawing(e) {
-                isDrawing = true;
-                [lastX, lastY] = getCoordinates(e);
-            }
-            
-            function draw(e) {
-                if (!isDrawing) return;
-                
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                
-                const [x, y] = getCoordinates(e);
-                ctx.lineTo(x, y);
-                ctx.strokeStyle = strokeColor;
-                ctx.lineWidth = lineWidth;
-                ctx.stroke();
-                
-                [lastX, lastY] = [x, y];
-            }
-            
-            function stopDrawing() {
-                isDrawing = false;
-                ctx.beginPath();
-            }
-            
-            function getCoordinates(e) {
-                if (e.type.includes('touch')) {
-                    const touch = e.touches[0] || e.changedTouches[0];
-                    const rect = canvas.getBoundingClientRect();
-                    return [touch.clientX - rect.left, touch.clientY - rect.top];
-                } else {
-                    return [e.offsetX, e.offsetY];
-                }
-            }
-            
-            // Event listeners for drawing
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseout', stopDrawing);
-            
-            // Touch events for mobile
-            canvas.addEventListener('touchstart', startDrawing);
-            canvas.addEventListener('touchmove', draw);
-            canvas.addEventListener('touchend', stopDrawing);
-            
-            // Clear canvas
-            clearBtn.addEventListener('click', function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            });
-            
-            // Save canvas
-            saveBtn.addEventListener('click', function() {
-                const dataUrl = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = 'my-drawing.png';
-                link.href = dataUrl;
-                link.click();
-            });
-            
-            // Speech functions
-            function speakLetter(letter) {
-                if ('speechSynthesis' in window) {
-                    const utterance = new SpeechSynthesisUtterance(letter);
-                    utterance.pitch = 1.2;
-                    utterance.rate = 0.8;
-                    speechSynthesis.speak(utterance);
-                }
-            }
-            
             // Math counter functionality
             const counterValue = document.getElementById('counter-value');
             const prevBtn = document.getElementById('prev-btn');
@@ -1056,29 +915,284 @@
                 counterValue.textContent = counter;
             }
             
-            // Math answer buttons
-            const answerButtons = document.querySelectorAll('.answer-btn');
+            // Math problems functionality
+            const mathProblem = document.getElementById('math-problem');
+            const answerOptions = document.getElementById('answer-options');
+            const nextProblemBtn = document.getElementById('next-problem-btn');
+            const mathLevel = document.getElementById('math-level');
+            let currentLevel = 1;
             
-            // Set up answer buttons
-            answerButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if(this.textContent === '56') {
-                        // Correct answer
-                        this.style.background = '#2ecc71';
-                        this.style.boxShadow = '0 3px 0 #27ae60';
-                        
-                        // Celebrate
-                        this.classList.add('celebrate');
-                        setTimeout(() => {
-                            this.classList.remove('celebrate');
-                        }, 1000);
-                    } else {
-                        // Wrong answer
-                        this.style.background = '#e74c3c';
-                        this.style.boxShadow = '0 3px 0 #c0392b';
+            // Math problems data
+            const mathProblems = [];
+            // Generate 100 math problems
+            for (let i = 1; i <= 100; i++) {
+                const num1 = Math.floor(Math.random() * 10) + 1;
+                const num2 = Math.floor(Math.random() * 10) + 1;
+                const operations = ['+', '-', '×', '÷'];
+                const operation = operations[Math.floor(Math.random() * operations.length)];
+                
+                let problem, answer;
+                switch(operation) {
+                    case '+':
+                        problem = `${num1} + ${num2} = ?`;
+                        answer = num1 + num2;
+                        break;
+                    case '-':
+                        problem = `${num1} - ${num2} = ?`;
+                        answer = num1 - num2;
+                        break;
+                    case '×':
+                        problem = `${num1} × ${num2} = ?`;
+                        answer = num1 * num2;
+                        break;
+                    case '÷':
+                        problem = `${num1 * num2} ÷ ${num2} = ?`;
+                        answer = num1;
+                        break;
+                }
+                
+                mathProblems.push({
+                    problem,
+                    answer,
+                    options: generateOptions(answer)
+                });
+            }
+            
+            function generateOptions(correct) {
+                const options = [correct];
+                while (options.length < 4) {
+                    const option = Math.max(0, correct + Math.floor(Math.random() * 10) - 5);
+                    if (!options.includes(option)) {
+                        options.push(option);
                     }
+                }
+                return shuffleArray(options);
+            }
+            
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            function showProblem(level) {
+                const problem = mathProblems[level - 1];
+                mathProblem.textContent = problem.problem;
+                mathLevel.textContent = level;
+                
+                answerOptions.innerHTML = '';
+                problem.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'answer-btn';
+                    button.textContent = option;
+                    button.addEventListener('click', function() {
+                        if (option === problem.answer) {
+                            this.style.background = '#2ecc71';
+                            this.style.boxShadow = '0 3px 0 #27ae60';
+                            this.classList.add('celebrate');
+                            setTimeout(() => {
+                                this.classList.remove('celebrate');
+                            }, 1000);
+                        } else {
+                            this.style.background = '#e74c3c';
+                            this.style.boxShadow = '0 3px 0 #c0392b';
+                        }
+                    });
+                    answerOptions.appendChild(button);
+                });
+            }
+            
+            nextProblemBtn.addEventListener('click', function() {
+                currentLevel = currentLevel < 100 ? currentLevel + 1 : 1;
+                showProblem(currentLevel);
+            });
+            
+            // Initialize with first problem
+            showProblem(currentLevel);
+            
+            // Poems functionality
+            const poemsContainer = document.getElementById('poems-container');
+            const poems = [
+                {
+                    title: "Twinkle, Twinkle, Little Star",
+                    content: `Twinkle, twinkle, little star,
+How I wonder what you are!
+Up above the world so high,
+Like a diamond in the sky.`
+                },
+                {
+                    title: "Humpty Dumpty",
+                    content: `Humpty Dumpty sat on a wall,
+Humpty Dumpty had a great fall.
+All the king's horses and all the king's men
+Couldn't put Humpty together again.`
+                },
+                {
+                    title: "Jack and Jill",
+                    content: `Jack and Jill went up the hill
+To fetch a pail of water.
+Jack fell down and broke his crown,
+And Jill came tumbling after.`
+                },
+                {
+                    title: "Baa, Baa, Black Sheep",
+                    content: `Baa, baa, black sheep,
+Have you any wool?
+Yes sir, yes sir,
+Three bags full.`
+                },
+                {
+                    title: "Little Miss Muffet",
+                    content: `Little Miss Muffet
+Sat on a tuffet,
+Eating her curds and whey;
+Along came a spider,
+Who sat down beside her,
+And frightened Miss Muffet away.`
+                },
+                {
+                    title: "Hey Diddle Diddle",
+                    content: `Hey diddle diddle,
+The cat and the fiddle,
+The cow jumped over the moon;
+The little dog laughed
+To see such sport,
+And the dish ran away with the spoon.`
+                },
+                {
+                    title: "Mary Had a Little Lamb",
+                    content: `Mary had a little lamb,
+Its fleece was white as snow;
+And everywhere that Mary went,
+The lamb was sure to go.`
+                },
+                {
+                    title: "Itsy Bitsy Spider",
+                    content: `The itsy bitsy spider climbed up the water spout.
+Down came the rain, and washed the spider out.
+Out came the sun, and dried up all the rain,
+And the itsy bitsy spider climbed up the spout again.`
+                },
+                {
+                    title: "Row, Row, Row Your Boat",
+                    content: `Row, row, row your boat,
+Gently down the stream.
+Merrily, merrily, merrily, merrily,
+Life is but a dream.`
+                },
+                {
+                    title: "Hickory Dickory Dock",
+                    content: `Hickory dickory dock,
+The mouse ran up the clock.
+The clock struck one,
+The mouse ran down,
+Hickory dickory dock.`
+                }
+            ];
+            
+            poems.forEach(poem => {
+                const poemCard = document.createElement('div');
+                poemCard.className = 'poem-card';
+                poemCard.innerHTML = `
+                    <h3 class="poem-title">${poem.title}</h3>
+                    <pre class="poem-content">${poem.content}</pre>
+                    <button class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                `;
+                
+                const playBtn = poemCard.querySelector('.play-btn');
+                playBtn.addEventListener('click', function() {
+                    speakPoem(poem.content);
+                });
+                
+                poemsContainer.appendChild(poemCard);
+            });
+            
+            function speakPoem(poem) {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(poem);
+                    utterance.pitch = 1.2;
+                    utterance.rate = 0.9;
+                    // Try to find a female voice
+                    const voices = speechSynthesis.getVoices();
+                    const femaleVoice = voices.find(voice => 
+                        voice.name.includes('female') || 
+                        voice.name.includes('Female') ||
+                        voice.name.includes('woman') ||
+                        voice.name.includes('Woman')
+                    );
+                    
+                    if (femaleVoice) {
+                        utterance.voice = femaleVoice;
+                    }
+                    
+                    speechSynthesis.speak(utterance);
+                }
+            }
+            
+            // Coloring functionality
+            const animalGrid = document.getElementById('animal-grid');
+            const coloringArea = document.getElementById('coloring-area');
+            const backBtn = document.getElementById('back-btn');
+            const coloringImage = document.getElementById('coloring-image');
+            const coloringTitle = document.getElementById('coloring-title');
+            const colorOptions = document.querySelectorAll('.color-option');
+            const animalImages = [
+                {name: "Lion", image: "🦁", level: 1},
+                {name: "Elephant", image: "🐘", level: 1},
+                {name: "Giraffe", image: "🦒", level: 1},
+                {name: "Tiger", image: "🐯", level: 1},
+                {name: "Monkey", image: "🐵", level: 1},
+                {name: "Zebra", image: "🦓", level: 1}
+            ];
+            
+            // Generate animal grid
+            animalImages.forEach(animal => {
+                const animalCard = document.createElement('div');
+                animalCard.className = 'animal-card';
+                animalCard.innerHTML = `
+                    <div class="animal-img" style="font-size: 3rem;">${animal.image}</div>
+                    <div class="animal-name">${animal.name}</div>
+                `;
+                
+                animalCard.addEventListener('click', function() {
+                    animalGrid.style.display = 'none';
+                    coloringArea.style.display = 'flex';
+                    coloringTitle.textContent = `Coloring: ${animal.name}`;
+                    coloringImage.textContent = animal.image;
+                    coloringImage.style.fontSize = '10rem';
+                });
+                
+                animalGrid.appendChild(animalCard);
+            });
+            
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                coloringArea.style.display = 'none';
+                animalGrid.style.display = 'grid';
+            });
+            
+            // Color selection
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    coloringImage.style.color = this.getAttribute('data-color');
                 });
             });
+            
+            // Speech functions
+            function speakLetter(letter) {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(letter);
+                    utterance.pitch = 1.2;
+                    utterance.rate = 0.8;
+                    speechSynthesis.speak(utterance);
+                }
+            }
         });
     </script>
 </body>
